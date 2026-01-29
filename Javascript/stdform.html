@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+        }
+        input, select {
+            margin: 5px;
+            padding: 5px;
+            width: 200px;
+        }
+        .gender {
+            width: auto;
+        }
+        button {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px 12px;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>STUDENT FORM</h2>
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Name" required><br>
+        <input type="number" id="age" placeholder="Age" required><br>
+        Gender:
+        <input type="radio" name="gender" value="Male" class="gender" required>Male
+        <input type="radio" name="gender" value="FeMale" class="gender">FeMale<br>
+        <select id="course" required>
+            <option value="">Select Course</option>
+            <option value="Python">PYTHON</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+        </select><br>
+        <input type="email" id="email" placeholder="E-mail" required><br>
+        <button type="submit">Save</button>
+    </form>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>NAME</th>
+                <th>AGE</th>
+                <th>COURSE</th>
+                <th>GENDER</th>
+                <th>EMAIL</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Entries will go here -->
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById('studentForm');
+        const tableBody = document.querySelector('#studentTable tbody');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const course = document.getElementById('course').value;
+            const email = document.getElementById('email').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            const row = tableBody.insertRow();
+
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${course}</td>
+                <td>${gender}</td>
+                <td>${email}</td>
+                <td><button class="delete-btn">Delete</button></td>
+            `;
+
+            row.querySelector('.delete-btn').addEventListener('click', () => {
+                row.remove();
+            });
+
+            form.reset();
+        });
+    </script>
+
+</body>
+</html>

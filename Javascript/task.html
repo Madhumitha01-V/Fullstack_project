@@ -1,0 +1,61 @@
+<!-- <input id="text" onkeyup="show()">
+<h1 id="result" ></h1>
+<script>
+   
+    function show()
+    {
+         var text = document.getElementById("text").value
+         var result = document.getElementById("result")
+         result.textContent = text
+    }
+</script> -->
+
+
+<!-- <button onclick="update()">Add</button>
+<div id="result"></div>
+
+<script>
+    var div = document.getElementById("result")
+    function update()
+    {
+        var listitem = document.createElement("h1")
+        listitem.textContent = "Hello"
+        div.append(listitem)
+    }
+</script> -->
+
+<!-- 
+<button id="color" onclick="change()">Change Color</button>
+<script>
+    function change()
+    {
+        var color = document.getElementById("color")
+        color.style.backgroundColor = "red"
+    }
+</script> -->
+
+<!-- <h1 id="displayname"></h1>
+<button onclick="display(this)">John</button>
+<button onclick="display(this)">Hari</button>
+<button onclick="display(this)">Arun</button>
+<script>
+    function display(button) {
+       var h1 = document.getElementById("displayname")
+       h1.textContent = button.textContent       
+    }
+
+</script> -->
+
+
+<h1 onclick="deleteitem(event)">One</h1>
+<h1 onclick="deleteitem(event)">Two</h1>
+<h1 onclick="deleteitem(event)">Three</h1>
+<h1 onclick="deleteitem(event)">Four</h1>
+<h1 onclick="deleteitem(event)">Five</h1>
+<h1 onclick="deleteitem(event)">Six</h1>
+
+<script>
+    function deleteitem(event) { 
+        event.target.remove();
+    }
+</script>

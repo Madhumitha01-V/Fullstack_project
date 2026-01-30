@@ -8,209 +8,165 @@
     <title>Shopping Cart - Perfumy</title>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo">
-                <h1>Perfumy</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#products">Products</a></li>
-                <li><a href="index.html#about">About Us</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-            <div class="user-actions" id="userActions">
-                <a href="#" class="cart-icon" id="cartIcon" title="Shopping Cart">
-                    <span class="icon">🛒</span>
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-                <div class="user-account">
-                    <button class="account-btn" id="accountBtn">
-                        <span class="icon">👤</span>
-                        <span class="username" id="username">Account</span>
-                    </button>
-                    <div class="account-dropdown" id="accountDropdown">
-                        <a href="account.html">My Account</a>
-                        <a href="cart.html">My Cart</a>
-                        <a href="#" id="logoutBtn">Logout</a>
-                    </div>
-                </div>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </nav>
-    </header>
 
-    <section class="cart-section">
-        <div class="container">
-            <h1>🛒 My Shopping Cart</h1>
+<header class="header">
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Perfumy</h1>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
 
-            <div class="cart-content">
-                <div class="cart-items" id="cartItems">
-                    <!-- Cart items will be populated by JavaScript -->
-                    <div class="empty-cart" id="emptyCart">
-                        <div class="empty-cart-icon">🛒</div>
-                        <h3>Your cart is empty</h3>
-                        <p>Add some beautiful fragrances to your cart!</p>
-                        <a href="index.html#products" class="shop-now-btn">Shop Now</a>
-                    </div>
-                </div>
-
-                <div class="cart-summary" id="cartSummary" style="display: none;">
-                    <h3>Order Summary</h3>
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span id="subtotal">₹0</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Shipping:</span>
-                        <span id="shipping">₹0</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>Total:</span>
-                        <span id="total">₹0</span>
-                    </div>
-                    <button class="checkout-btn" id="checkoutBtn">
-                        <span class="btn-icon">💳</span>
-                        Proceed to Checkout
-                    </button>
-                    <a href="index.html#products" class="continue-shopping">Continue Shopping</a>
+        <div class="user-actions" id="userActions">
+            <a href="#" class="cart-icon">
+                🛒 <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <div class="user-account">
+                <button class="account-btn">
+                    👤 <span class="username" id="username">Account</span>
+                </button>
+                <div class="account-dropdown">
+                    <a href="account.html">My Account</a>
+                    <a href="cart.html">My Cart</a>
+                    <a href="#" id="logoutBtn">Logout</a>
                 </div>
             </div>
         </div>
-    </section>
+    </nav>
+</header>
 
-    <script src="script.js"></script>
-    <script>
-        // Cart page specific functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is logged in before loading cart page
-            if (!isUserLoggedIn()) {
-                alert('Please login to access your cart!');
-                window.location.href = 'login.html';
-                return;
-            }
+<section class="cart-section">
+    <div class="container">
+        <h1>🛒 My Shopping Cart</h1>
 
-            initializeUserState();
-            loadCartItems();
-            setupCartEventListeners();
-        });
-
-        function loadCartItems() {
-            const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
-            const cartItemsContainer = document.getElementById('cartItems');
-            const cartSummary = document.getElementById('cartSummary');
-            const emptyCart = document.getElementById('emptyCart');
-
-            if (cart.length === 0) {
-                emptyCart.style.display = 'block';
-                cartSummary.style.display = 'none';
-                return;
-            }
-
-            emptyCart.style.display = 'none';
-            cartSummary.style.display = 'block';
-
-            // Clear existing items
-            const existingItems = cartItemsContainer.querySelectorAll('.cart-item');
-            existingItems.forEach(item => item.remove());
-
-            let subtotal = 0;
-
-            cart.forEach(item => {
-                const itemElement = createCartItemElement(item);
-                cartItemsContainer.insertBefore(itemElement, cartSummary);
-                subtotal += item.price * item.quantity;
-            });
-
-            updateCartSummary(subtotal);
-        }
-
-        function createCartItemElement(item) {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'cart-item';
-            itemDiv.innerHTML = `
-                <div class="cart-item-image">
-                    <img src="${item.image}" alt="${item.name}">
+        <div class="cart-content">
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart" id="emptyCart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>Your cart is empty</h3>
+                    <p>Add some beautiful fragrances to your cart!</p>
+                    <a href="index.html#products" class="shop-now-btn">Shop Now</a>
                 </div>
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p class="cart-item-description">${item.description}</p>
-                    <div class="cart-item-price">₹${item.price.toLocaleString()}</div>
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus" data-product-id="${item.id}">-</button>
-                        <span class="quantity">${item.quantity}</span>
-                        <button class="quantity-btn plus" data-product-id="${item.id}">+</button>
-                    </div>
+            </div>
+
+            <div class="cart-summary" id="cartSummary" style="display:none;">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0</span>
                 </div>
-                <div class="cart-item-total">₹${(item.price * item.quantity).toLocaleString()}</div>
-                <button class="remove-item" data-product-id="${item.id}">
-                    <span class="remove-icon">🗑️</span>
-                </button>
-            `;
-            return itemDiv;
-        }
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">₹0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">₹0</span>
+                </div>
+                <button class="checkout-btn">💳 Proceed to Checkout</button>
+                <a href="index.html#products" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-        function updateCartSummary(subtotal) {
-            const shipping = subtotal > 500 ? 0 : 100;
-            const total = subtotal + shipping;
+<script src="script.js"></script>
 
-            document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
-            document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
-            document.getElementById('total').textContent = `₹${total.toLocaleString()}`;
-        }
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (!isUserLoggedIn()) {
+        alert('Please login to access your cart');
+        window.location.href = 'login.html';
+        return;
+    }
 
-        function setupCartEventListeners() {
-            // Quantity controls
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('quantity-btn')) {
-                    const productId = parseInt(e.target.dataset.productId);
-                    const isPlus = e.target.classList.contains('plus');
-                    updateItemQuantity(productId, isPlus);
-                }
+    initializeUserState();
+    loadCartItems();
+    updateCartCount();
+});
 
-                if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
-                    const productId = parseInt(e.target.dataset.productId || e.target.closest('.remove-item').dataset.productId);
-                    removeFromCart(productId);
-                }
-            });
+function loadCartItems() {
+    const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
+    const cartItems = document.getElementById('cartItems');
+    const emptyCart = document.getElementById('emptyCart');
+    const cartSummary = document.getElementById('cartSummary');
 
-            // Checkout button
-            document.getElementById('checkoutBtn').addEventListener('click', function() {
-                alert('Checkout functionality will be implemented with payment integration!');
-            });
-        }
+    cartItems.querySelectorAll('.cart-item').forEach(i => i.remove());
 
-        function updateItemQuantity(productId, increase) {
-            const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
-            const itemIndex = cart.findIndex(item => item.id === productId);
+    if (cart.length === 0) {
+        emptyCart.style.display = 'block';
+        cartSummary.style.display = 'none';
+        return;
+    }
 
-            if (itemIndex !== -1) {
-                if (increase) {
-                    cart[itemIndex].quantity += 1;
-                } else {
-                    cart[itemIndex].quantity -= 1;
-                    if (cart[itemIndex].quantity <= 0) {
-                        cart.splice(itemIndex, 1);
-                    }
-                }
+    emptyCart.style.display = 'none';
+    cartSummary.style.display = 'block';
 
-                localStorage.setItem('perfumy_cart', JSON.stringify(cart));
-                updateCartCount();
-                loadCartItems();
-            }
-        }
+    let subtotal = 0;
 
-        function removeFromCart(productId) {
-            const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
-            const updatedCart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('perfumy_cart', JSON.stringify(updatedCart));
-            updateCartCount();
-            loadCartItems();
-        }
-    </script>
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <p>${item.description}</p>
+                <div class="cart-item-price">₹${item.price}</div>
+                <div class="quantity-controls">
+                    <button onclick="changeQty(${item.id}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="changeQty(${item.id}, 1)">+</button>
+                </div>
+            </div>
+            <div class="cart-item-total">₹${item.price * item.quantity}</div>
+            <button class="remove-item" onclick="removeItem(${item.id})">🗑️</button>
+        `;
+        cartItems.appendChild(div);
+    });
+
+    updateSummary(subtotal);
+}
+
+function changeQty(id, delta) {
+    const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+
+    item.quantity += delta;
+    if (item.quantity <= 0) {
+        removeItem(id);
+        return;
+    }
+
+    localStorage.setItem('perfumy_cart', JSON.stringify(cart));
+    loadCartItems();
+    updateCartCount();
+}
+
+function removeItem(id) {
+    let cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
+    cart = cart.filter(i => i.id !== id);
+    localStorage.setItem('perfumy_cart', JSON.stringify(cart));
+    loadCartItems();
+    updateCartCount();
+}
+
+function updateSummary(subtotal) {
+    const shipping = subtotal > 500 ? 0 : 100;
+    document.getElementById('subtotal').textContent = `₹${subtotal}`;
+    document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `₹${shipping}`;
+    document.getElementById('total').textContent = `₹${subtotal + shipping}`;
+}
+</script>
+
 </body>
 </html>

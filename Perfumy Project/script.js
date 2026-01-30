@@ -1,102 +1,166 @@
 // ================================
-// script.js – Perfumy (FIXED)
+// script.js – Perfumy (Simplified & Beautiful)
 // ================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Hide loading screen
+    // Hide loading screen with smooth animation
     setTimeout(() => {
         const loadingScreen = document.getElementById('loadingScreen');
         if (loadingScreen) {
-            loadingScreen.classList.add('hide');
-            setTimeout(() => loadingScreen.remove(), 500);
+            loadingScreen.style.display = 'none';
         }
-    }, 1500);
+    }, 2000);
 
-    initializeUserState();
-    initializeProductInteractions();
-    initializeAuthForms();
+    // Initialize core functionality
     initializeMobileMenu();
     initializeSmoothScrolling();
-    updateCartCount();
-    initializeCartPage();
-    initializeSearch();
-    initializeFilters();
-
-    // Show auth prompt for non-logged-in users after loading screen
-    setTimeout(() => {
-        showAuthPromptIfNeeded();
-    }, 2000);
+    initializeScrollEffects();
 });
 
 // ================================
-// USER STATE
+// MOBILE MENU
 // ================================
 
-function isUserLoggedIn() {
-    const user = localStorage.getItem('perfumy_user');
-    if (!user) return false;
-    try {
-        const parsed = JSON.parse(user);
-        return parsed.loggedIn === true;
-    } catch {
-        return false;
+function initializeMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
     }
 }
 
-function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('perfumy_user'));
-}
-
-function initializeUserState() {
-    const userActions = document.getElementById('userActions');
-    const username = document.getElementById('username');
-
-    if (isUserLoggedIn()) {
-        const user = getCurrentUser();
-        if (userActions) userActions.style.display = 'flex';
-        if (username) username.textContent = user.firstName || 'Account';
-    } else {
-        if (userActions) userActions.style.display = 'none';
-    }
-
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.onclick = () => logout();
-    }
-}
-
-function logout() {
-    localStorage.removeItem('perfumy_user');
-    localStorage.removeItem('perfumy_cart');
-    localStorage.removeItem('perfumy_favorites');
-    window.location.href = 'index.html';
-}
-
 // ================================
-// ENHANCED AUTH FORMS (MARVELOUS FEATURES)
+// SMOOTH SCROLLING
 // ================================
 
-function initializeAuthForms() {
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const contactForm = document.querySelector('.contact-form');
-
-    // Enhanced password toggle functionality
-    const toggleButtons = document.querySelectorAll('.password-toggle');
-    toggleButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const passwordInput = btn.previousElementSibling;
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
-            } else {
-                passwordInput.type = 'password';
-                btn.innerHTML = '<i class="fas fa-eye"></i>';
+function initializeSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
+}
 
-    // Password strength checker for signup
+// ================================
+// SCROLL EFFECTS
+// ================================
+
+function initializeScrollEffects() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.product-card, .feature, .about-text, .about-image').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Header scroll effect
+    let lastScrollTop = 0;
+    const header = document.querySelector('.header');
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up
+            header.style.transform = 'translateY(0)';
+        }
+
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+}
+
+// ================================
+// UTILITY FUNCTIONS
+// ================================
+
+// Add loading class to body initially
+document.body.classList.add('loading');
+
+// Remove loading class after content loads
+window.addEventListener('load', () => {
+    document.body.classList.remove('loading');
+});
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    .loading {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-card, .feature, .about-text, .about-image {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+
+    .animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .header {
+        transition: transform 0.3s ease;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .nav-menu.active {
+        transform: translateX(0);
+    }
+`;
+document.head.appendChild(style);
+
+// ================================
+// FORM INITIALIZATION
+// ================================
+
+function initializeForms() {
+    // Initialize authentication and form handlers
     const passwordInput = document.getElementById('password');
     if (passwordInput) {
         passwordInput.addEventListener('input', checkPasswordStrength);
@@ -106,11 +170,13 @@ function initializeAuthForms() {
     initializeFormValidation();
 
     // Login form handler
+    const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
     }
 
     // Signup form handler
+    const signupForm = document.getElementById('signupForm');
     if (signupForm) {
         signupForm.addEventListener('submit', handleSignup);
     }
@@ -121,6 +187,8 @@ function initializeAuthForms() {
         forgotPasswordForm.addEventListener('submit', handleForgotPassword);
     }
 
+    // Contact form handler
+    const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', e => {
             e.preventDefault();
@@ -129,6 +197,11 @@ function initializeAuthForms() {
         });
     }
 }
+
+// Initialize forms when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeForms();
+});   
 
 // Social Login Functions
 function socialLogin(provider) {

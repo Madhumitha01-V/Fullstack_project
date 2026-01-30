@@ -10,234 +10,161 @@
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div id="loadingScreen" class="loading-screen">
-    <div class="loading-content">
-        <div class="loading-spinner"></div>
-        <h2>Perfumy</h2>
-        <p>Join Our Family</p>
-    </div>
-</div>
-
-<header class="header">
-    <nav class="navbar">
-        <div class="logo"><h1>Perfumy</h1></div>
-        <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#products">Products</a></li>
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Perfumy</h2>
+            <p>Join Our Family</p>
         </div>
-    </nav>
-</header>
+    </div>
 
-<section class="auth-section">
-    <div class="container">
-        <div class="auth-container">
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Perfumy</h1>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="nav-link">Home</a>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-            <!-- SIGNUP FORM -->
-            <div class="auth-form">
-                <div class="auth-header">
-                    <div class="auth-icon">
-                        <i class="fas fa-user-plus"></i>
+    <!-- Sign Up Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <!-- Sign Up Form -->
+                <div class="auth-form">
+                    <div class="auth-header">
+                        <div class="auth-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h2>Join Perfumy</h2>
+                        <p>Create your account and discover luxury fragrances</p>
                     </div>
-                    <h2>Join Perfumy</h2>
-                    <p>Create your account and discover luxury fragrances</p>
-                </div>
 
-                <!-- Social Login -->
-                <div class="social-login">
-                    <button class="social-btn google-btn" onclick="socialLogin('google')">
-                        <i class="fab fa-google"></i>
-                        Sign up with Google
-                    </button>
-                    <button class="social-btn facebook-btn" onclick="socialLogin('facebook')">
-                        <i class="fab fa-facebook-f"></i>
-                        Sign up with Facebook
-                    </button>
-                    <button class="social-btn apple-btn" onclick="socialLogin('apple')">
-                        <i class="fab fa-apple"></i>
-                        Sign up with Apple
-                    </button>
-                </div>
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i>
+                            Sign up with Google
+                        </button>
+                        <button class="social-btn facebook-btn">
+                            <i class="fab fa-facebook-f"></i>
+                            Sign up with Facebook
+                        </button>
+                    </div>
 
-                <div class="divider">
-                    <span>or</span>
-                </div>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
 
-                <form class="signup-form" id="signupForm">
-                    <div class="form-row">
+                    <form class="signup-form" id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="firstName" name="firstName" required placeholder="First name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="lastName" name="lastName" required placeholder="Last name">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
+                            <label for="email">Email Address</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-user input-icon"></i>
-                                <input type="text" id="firstName" name="firstName" required placeholder="First name">
-                                <div class="input-feedback"></div>
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" name="email" required placeholder="Enter your email">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="lastName">Last Name</label>
+                            <label for="password">Password</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-user input-icon"></i>
-                                <input type="text" id="lastName" name="lastName" required placeholder="Last name">
-                                <div class="input-feedback"></div>
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="password" name="password" required placeholder="Create a password">
+                                <button type="button" class="password-toggle">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-meter">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText">Password strength</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+                            </label>
+                        </div>
+
+                        <button class="auth-submit-btn" type="submit">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Already have an account?
+                            <a href="login.html" class="auth-link">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Image Section -->
+                <div class="auth-image">
+                    <div class="image-content">
+                        <h3>Start Your Fragrance Journey</h3>
+                        <p>Join thousands of customers who trust Perfumy for their signature scents. Get exclusive access to new releases and special offers.</p>
+                        <div class="image-stats">
+                            <div class="stat">
+                                <span class="stat-number">Free</span>
+                                <span class="stat-label">Shipping</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">30-Day</span>
+                                <span class="stat-label">Returns</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-envelope input-icon"></i>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email">
-                            <div class="input-feedback"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-phone input-icon"></i>
-                            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
-                            <div class="input-feedback"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="password" name="password" required placeholder="Create a strong password" minlength="8">
-                            <button type="button" id="togglePassword" class="password-toggle">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <div class="password-strength" id="passwordStrength">
-                            <div class="strength-bar">
-                                <div class="strength-fill" id="strengthFill"></div>
-                            </div>
-                            <span class="strength-text" id="strengthText">Password strength</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-                            <div class="input-feedback"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-options">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#" onclick="showTermsModal()" class="terms-link">Terms & Conditions</a>
-                        </label>
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="newsletter" name="newsletter">
-                            <span class="checkmark"></span>
-                            Subscribe to our newsletter
-                        </label>
-                    </div>
-
-                    <button class="auth-btn" type="submit" id="signupBtn">
-                        <span class="btn-text">Create Account</span>
-                        <div class="btn-loader" id="signupLoader"></div>
-                    </button>
-                </form>
-
-                <div class="auth-footer">
-                    <p>Already have an account?
-                        <a href="login.html" class="auth-link">Sign in</a>
-                    </p>
-                </div>
-
-                <!-- Success Animation -->
-                <div class="success-animation" id="successAnimation">
-                    <div class="success-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3>Welcome to Perfumy!</h3>
-                    <p>Your account has been created successfully</p>
-                </div>
-            </div>
-
-            <!-- IMAGE -->
-            <div class="auth-image">
-                <div class="image-content">
-                    <h3>Start Your Fragrance Journey</h3>
-                    <p>Join our community of fragrance enthusiasts and discover scents that tell your unique story.</p>
-                    <div class="image-stats">
-                        <div class="stat">
-                            <span class="stat-number">Free</span>
-                            <span class="stat-label">Shipping</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">30-Day</span>
-                            <span class="stat-label">Returns</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Support</span>
-                        </div>
+                    <div class="floating-elements">
+                        <div class="floating-element elem-1">🌸</div>
+                        <div class="floating-element elem-2">🌺</div>
+                        <div class="floating-element elem-3">🌹</div>
                     </div>
                 </div>
-                <div class="floating-elements">
-                    <div class="floating-element elem-1">✨</div>
-                    <div class="floating-element elem-2">🌟</div>
-                    <div class="floating-element elem-3">💫</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Terms & Conditions Modal -->
-<div class="modal" id="termsModal">
-    <div class="modal-content large-modal">
-        <div class="modal-header">
-            <h3>Terms & Conditions</h3>
-            <button class="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="terms-content">
-                <h4>1. Acceptance of Terms</h4>
-                <p>By accessing and using Perfumy's services, you accept and agree to be bound by the terms and provision of this agreement.</p>
-
-                <h4>2. User Account</h4>
-                <p>You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.</p>
-
-                <h4>3. Privacy Policy</h4>
-                <p>Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the service, to understand our practices.</p>
-
-                <h4>4. Product Information</h4>
-                <p>We strive to provide accurate product information, but we do not warrant that product descriptions are accurate, complete, or error-free.</p>
-
-                <h4>5. Returns & Exchanges</h4>
-                <p>We offer a 30-day return policy for unused products in their original packaging. Custom fragrances are not eligible for returns.</p>
-
-                <h4>6. Limitation of Liability</h4>
-                <p>Perfumy shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of our services.</p>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
-                <button class="auth-btn" onclick="acceptTerms()">I Accept</button>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>

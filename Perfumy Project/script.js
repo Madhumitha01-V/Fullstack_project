@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCartPage();
     initializeSearch();
     initializeFilters();
+
+    // Show auth prompt for non-logged-in users after loading screen
+    setTimeout(() => {
+        showAuthPromptIfNeeded();
+    }, 2000);
 });
 
 // ================================
@@ -944,3 +949,57 @@ function filterProducts(category) {
         showNotification(`Showing ${visibleCards.length} ${category} fragrance${visibleCards.length === 1 ? '' : 's'}`);
     }
 }
+
+// ================================
+// AUTH PROMPT MODAL
+// ================================
+
+function showAuthPromptIfNeeded() {
+    // Only show if user is not logged in and hasn't dismissed the prompt before
+    if (!isUserLoggedIn() && !hasDismissedAuthPrompt()) {
+        const modal = document.getElementById('authPromptModal');
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+    }
+}
+
+function closeAuthPrompt() {
+    const modal = document.getElementById('authPromptModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+        // Mark as dismissed for this session
+        sessionStorage.setItem('authPromptDismissed', 'true');
+    }
+}
+
+function continueAsGuest() {
+    closeAuthPrompt();
+    // Show a welcome message for guest users
+    setTimeout(() => {
+        showNotification('Welcome! You can browse our fragrances as a guest. Sign up to save favorites and make purchases!', 'info');
+    }, 500);
+}
+
+function hasDismissedAuthPrompt() {
+    return sessionStorage.getItem('authPromptDismissed') === 'true';
+}
+
+// Close modal when clicking overlay
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('auth-prompt-overlay')) {
+        closeAuthPrompt();
+    }
+});
+
+// Close modal on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('authPromptModal');
+        if (modal && modal.classList.contains('show')) {
+            closeAuthPrompt();
+        }
+    }
+});

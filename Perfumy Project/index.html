@@ -26,34 +26,34 @@
                 <li><a href="#products">Products</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <div class="nav-actions">
-                    <div class="auth-buttons">
-                        <a href="login.html" class="auth-btn login-btn">Login</a>
-                        <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
+            </ul>
+            <div class="nav-actions">
+                <div class="auth-buttons">
+                    <a href="login.html" class="auth-btn login-btn">Login</a>
+                    <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
+                </div>
+                <div class="user-actions" id="userActions" style="display: none;">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
+                        <button id="searchBtn" class="search-btn">🔍</button>
                     </div>
-                    <div class="user-actions" id="userActions" style="display: none;">
-                        <div class="search-container">
-                            <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
-                            <button id="searchBtn" class="search-btn">🔍</button>
-                        </div>
-                        <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
-                            <span class="icon">🛒</span>
-                            <span class="cart-count" id="cartCount">0</span>
-                        </a>
-                        <div class="user-account">
-                            <button class="account-btn" id="accountBtn">
-                                <span class="icon">👤</span>
-                                <span class="username" id="username">Account</span>
-                            </button>
-                            <div class="account-dropdown" id="accountDropdown">
-                                <a href="account.html">My Account</a>
-                                <a href="cart.html">My Cart</a>
-                                <a href="#" id="logoutBtn">Logout</a>
-                            </div>
+                    <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
+                        <span class="icon">🛒</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <div class="user-account">
+                        <button class="account-btn" id="accountBtn">
+                            <span class="icon">👤</span>
+                            <span class="username" id="username">Account</span>
+                        </button>
+                        <div class="account-dropdown" id="accountDropdown">
+                            <a href="account.html">My Account</a>
+                            <a href="cart.html">My Cart</a>
+                            <a href="#" id="logoutBtn">Logout</a>
                         </div>
                     </div>
                 </div>
-            </ul>
+            </div>
                 <div class="search-container">
                     <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
                     <button id="searchBtn" class="search-btn">🔍</button>
@@ -81,6 +81,53 @@
             </div>
         </nav>
     </header>
+
+    <!-- Login/Signup Prompt Modal -->
+    <div class="auth-prompt-modal" id="authPromptModal">
+        <div class="auth-prompt-overlay">
+            <div class="auth-prompt-content">
+                <div class="auth-prompt-header">
+                    <h2>Welcome to Perfumy</h2>
+                    <p>Discover your signature scent and indulge in luxury fragrances</p>
+                </div>
+                <div class="auth-prompt-body">
+                    <div class="auth-prompt-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Premium Fragrances</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Happy Customers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">Free</span>
+                            <span class="stat-label">Shipping</span>
+                        </div>
+                    </div>
+                    <div class="auth-prompt-actions">
+                        <a href="login.html" class="auth-prompt-btn login-prompt-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login to Your Account
+                        </a>
+                        <a href="signup.html" class="auth-prompt-btn signup-prompt-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Create New Account
+                        </a>
+                    </div>
+                    <div class="auth-prompt-footer">
+                        <button class="continue-guest-btn" onclick="continueAsGuest()">
+                            <i class="fas fa-arrow-right"></i>
+                            Continue as Guest
+                        </button>
+                    </div>
+                </div>
+                <button class="auth-prompt-close" onclick="closeAuthPrompt()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <section id="home" class="hero">
         <div class="hero-content">

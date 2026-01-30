@@ -4,50 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Perfumy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Perfumy - Luxury Fragrances</title>
 </head>
 <body>
-    <div class="header">
-        <nav>
-            <h1>Perfumy</h1>
-            <ol>
-                <li>Home | </li>
-                <li>Products | </li>
-                <li>About us | </li>
-                <li>Contact us</li>
-            </ol>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Perfumy</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </nav>
-    </div>
-    <div class="searchbar">
-        <input placeholder="search">
-    </div>
-    <div class="products">
-        <div class="box">
-            <img src="https://images.unsplash.com/photo-1458538977777-0549b2370168?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width="220px" height="220px">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod atque modi at iste ratione itaque adipisci quas ab asperiores alias!</p>
-        </div>
+    </header>
 
-        <div class="box">
-            <img src="https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI1fHx8ZW58MHx8fHx8"width="220px" height="220px">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod atque modi at iste ratione itaque adipisci quas ab asperiores alias!</p>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Discover Your Signature Scent</h2>
+            <p>Indulge in luxury fragrances that captivate and inspire.</p>
+            <a href="#products" class="cta-button">Explore Collection</a>
         </div>
+    </section>
 
-        <div class="box">
-            <img src="https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDc5fHx8ZW58MHx8fHx8"width="220px" height="220px">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod atque modi at iste ratione itaque adipisci quas ab asperiores alias!</p>
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Our Featured Fragrances</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1458538977777-0549b2370168?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Luxury Perfume 1">
+                    <div class="product-info">
+                        <h3>Elegant Rose</h3>
+                        <p>A sophisticated blend of rose petals and vanilla, perfect for evening occasions.</p>
+                        <span class="price">$89.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI1fHx8ZW58MHx8fHx8" alt="Luxury Perfume 2">
+                    <div class="product-info">
+                        <h3>Midnight Jasmine</h3>
+                        <p>An intoxicating jasmine scent with hints of sandalwood for a mysterious allure.</p>
+                        <span class="price">$79.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDc5fHx8ZW58MHx8fHx8" alt="Luxury Perfume 3">
+                    <div class="product-info">
+                        <h3>Citrus Breeze</h3>
+                        <p>A refreshing citrus explosion with undertones of fresh herbs and musk.</p>
+                        <span class="price">$69.99</span>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="about">
-        <center>
-            <h1>About Us</h1>
-        </center>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui id veniam deserunt aliquam incidunt fugit libero vel odio dolorem illum ducimus, nulla error sequi, vitae quam. Error vero natus ullam odit, ut omnis veritatis nulla, voluptas eius consequatur ratione modi facilis id mollitia! Totam quis blanditiis ipsum a eaque odit minus inventore ab libero numquam eligendi ut, voluptates laudantium maxime voluptas quo dolorem odio quam qui natus est cum eos enim? Ad possimus harum modi doloribus odit nobis sit cumque ratione architecto, pariatur assumenda nemo quia at debitis quisquam vitae fugiat quis ducimus quibusdam perferendis? Itaque sed delectus architecto dolore ipsam exercitationem nobis earum omnis voluptates qui, obcaecati quisquam placeat odit doloribus. Doloremque odio laudantium ducimus placeat quae mollitia, rem corporis sed maxime? Magnam maiores dolore perspiciatis animi, exercitationem excepturi accusantium iste molestias dolorem quae laboriosam error voluptatem velit nisi a tempora. Et praesentium pariatur error ab quod incidunt nemo exercitationem dicta consequatur, nesciunt amet perferendis recusandae labore maxime adipisci quae enim! Doloribus, cupiditate! Iure rerum quas ducimus autem, eius deleniti, illum maxime dolorum modi laudantium blanditiis magnam similique dicta fugiat. Repudiandae, nulla sint. Debitis optio autem, deleniti, illo nam earum blanditiis ab explicabo est perferendis voluptates mollitia ex quo?</p>
-    </div>
-    <div class="contact">
-        <h4>Contact</h4>
-        <p>+91 9361483586</p>
-        <p>perfumy@gmail.com</p>
-        <p style="margin-top: 30px; font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit facilis animi quaerat dolore vero veniam cumque maiores harum, nobis, eum voluptas voluptates. Assumenda dignissimos libero alias in animi tenetur exercitationem enim nulla porro esse ipsum quaerat, dicta quis numquam praesentium quam eaque beatae adipisci odio deserunt laborum tempora vitae. Impedit?</p>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Perfumy</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Perfumy, we believe that every individual deserves to feel confident and alluring. Our collection of luxury fragrances is crafted with the finest ingredients from around the world, ensuring unparalleled quality and sophistication.</p>
+                    <p>Founded in 2020, Perfumy has quickly become a leader in the fragrance industry, known for our innovative blends and commitment to sustainability. Each scent tells a story, designed to evoke emotions and create lasting memories.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyZnVtZXxlbnwwfHwwfHx8MA%3D%3D" alt="Perfume bottles">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p><strong>Phone:</strong> +91 9361483586</p>
+                    <p><strong>Email:</strong> perfumy@gmail.com</p>
+                    <p><strong>Address:</strong> 123 Fragrance Street, Perfume City, PC 12345</p>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Perfumy. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
     </div>
 </body>
 </html>

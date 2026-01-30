@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Sign Up - Perfumy</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Perfumy</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-form">
+                    <h2>Join Perfumy</h2>
+                    <p>Create your account to discover luxury fragrances</p>
+
+                    <form class="signup-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="First name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" placeholder="Create a password" required minlength="8">
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <span class="eye-icon">👁️</span>
+                                </button>
+                            </div>
+                            <small class="password-hint">Password must be at least 8 characters long</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" name="terms" required>
+                                I agree to the <a href="#" class="terms-link">Terms & Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" name="newsletter">
+                                Subscribe to our newsletter for exclusive offers
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Create Account</button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button class="social-btn google-btn">
+                            <span>🔍</span> Sign up with Google
+                        </button>
+                        <button class="social-btn facebook-btn">
+                            <span>📘</span> Sign up with Facebook
+                        </button>
+                    </div>
+
+                    <p class="auth-link">
+                        Already have an account? <a href="login.html">Sign in here</a>
+                    </p>
+                </div>
+
+                <div class="auth-image">
+                    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHBlcmZ1bWV8ZW58MHx8MHx8fDA%3D" alt="Luxury Perfumes">
+                    <div class="image-overlay">
+                        <h3>Start Your Fragrance Journey</h3>
+                        <p>Join thousands of satisfied customers who trust Perfumy for their signature scents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Password toggle functionality
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const password = document.getElementById('password');
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const submitBtn = document.querySelector('.auth-btn');
+
+            if (password !== confirmPassword) {
+                this.setCustomValidity("Passwords don't match");
+                submitBtn.disabled = true;
+            } else {
+                this.setCustomValidity('');
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Form submission
+        document.querySelector('.signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const firstName = this.firstName.value;
+            const lastName = this.lastName.value;
+            const email = this.email.value;
+            const phone = this.phone.value;
+            const password = this.password.value;
+            const confirmPassword = this.confirmPassword.value;
+            const terms = this.terms.checked;
+
+            if (firstName && lastName && email && phone && password && confirmPassword && terms) {
+                if (password === confirmPassword) {
+                    if (password.length >= 8) {
+                        // In a real application, this would send data to a server
+                        alert('Account created successfully! Welcome to Perfumy.');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('Password must be at least 8 characters long.');
+                    }
+                } else {
+                    alert('Passwords do not match.');
+                }
+            } else {
+                alert('Please fill in all required fields and agree to the terms.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Perfumy - Luxury Fragrances</title>
 </head>
 <body>
+
     <!-- Loading Screen -->
     <div id="loadingScreen" class="loading-screen">
         <div class="loading-content">
@@ -16,31 +18,38 @@
             <p>Discover Your Signature Scent</p>
         </div>
     </div>
+
+    <!-- HEADER START -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
                 <h1>Perfumy</h1>
             </div>
+
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#products">Products</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
             <div class="nav-actions">
-                <div class="auth-buttons">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search fragrances...">
+                    <button id="searchBtn" class="search-btn">🔍</button>
+                </div>
+
+                <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
+                    <span class="icon">🛒</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+
+                <div class="auth-buttons" id="authButtons">
                     <a href="login.html" class="auth-btn login-btn">Login</a>
                     <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
                 </div>
+
                 <div class="user-actions" id="userActions" style="display: none;">
-                    <div class="search-container">
-                        <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
-                        <button id="searchBtn" class="search-btn">🔍</button>
-                    </div>
-                    <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
-                        <span class="icon">🛒</span>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </a>
                     <div class="user-account">
                         <button class="account-btn" id="accountBtn">
                             <span class="icon">👤</span>
@@ -54,26 +63,7 @@
                     </div>
                 </div>
             </div>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
-                    <button id="searchBtn" class="search-btn">🔍</button>
-                </div>
-                <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
-                    <span class="icon">🛒</span>
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-                <div class="user-account">
-                    <button class="account-btn" id="accountBtn">
-                        <span class="icon">👤</span>
-                        <span class="username" id="username">Account</span>
-                    </button>
-                    <div class="account-dropdown" id="accountDropdown">
-                        <a href="account.html">My Account</a>
-                        <a href="cart.html">My Cart</a>
-                        <a href="#" id="logoutBtn">Logout</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -81,6 +71,7 @@
             </div>
         </nav>
     </header>
+    <!-- HEADER END -->
 
     <!-- Login/Signup Prompt Modal -->
     <div class="auth-prompt-modal" id="authPromptModal">
@@ -132,14 +123,36 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h2>Discover Your Signature Scent</h2>
-            <p>Indulge in luxury fragrances that captivate and inspire.</p>
+            <p>Indulge in luxury fragrances that captivate and inspire. Each bottle tells a unique story crafted for the discerning individual.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Premium Fragrances</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Countries Served</span>
+                </div>
+            </div>
             <a href="#products" class="cta-button">Explore Collection</a>
+        </div>
+        <div class="hero-image">
+            <div class="floating-elements">
+                <div class="floating-element elem-1">🌸</div>
+                <div class="floating-element elem-2">🌺</div>
+                <div class="floating-element elem-3">🌹</div>
+            </div>
         </div>
     </section>
 
     <section id="products" class="products">
         <div class="container">
             <h2>Our Featured Fragrances</h2>
+            <p>Discover our carefully curated collection of luxury perfumes</p>
 
             <!-- Filter Buttons -->
             <div class="filter-buttons">
@@ -150,139 +163,158 @@
                 <button class="filter-btn" data-filter="oriental">Oriental</button>
             </div>
 
-            <div class="product-grid">
-                <div class="product-card" data-product-id="1">
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <div class="product-card" data-product-id="1" data-category="floral">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Elegant Rose Perfume">
-                        <button class="like-btn" data-product-id="1" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Elegant Rose">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="1">Add to Cart</button>
+                            <button class="like-btn" data-product-id="1">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Elegant Rose</h3>
-                        <p>A sophisticated blend of rose petals and vanilla, perfect for evening occasions.</p>
-                        <span class="price">₹3,999</span>
-                        <button class="add-to-cart" data-product-id="1">Add to Cart</button>
+                        <p>Rose & vanilla blend with a touch of elegance</p>
+                        <div class="product-price">₹3,999</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="2">
+                <div class="product-card" data-product-id="2" data-category="floral">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Midnight Jasmine Perfume">
-                        <button class="like-btn" data-product-id="2" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Midnight Jasmine">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="2">Add to Cart</button>
+                            <button class="like-btn" data-product-id="2">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Midnight Jasmine</h3>
-                        <p>An intoxicating jasmine scent with hints of sandalwood for a mysterious allure.</p>
-                        <span class="price">₹3,499</span>
-                        <button class="add-to-cart" data-product-id="2">Add to Cart</button>
+                        <p>Jasmine & sandalwood for a mysterious allure</p>
+                        <div class="product-price">₹3,499</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="3">
+                <div class="product-card" data-product-id="3" data-category="citrus">
                     <div class="product-image">
-                        <img src="https://tse1.mm.bing.net/th/id/OIP.ZWzP-beK0QjTRbC7OwXvJAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Citrus Breeze Perfume">
-                        <button class="like-btn" data-product-id="3" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.ZWzP-beK0QjTRbC7OwXvJAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Citrus Breeze">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="3">Add to Cart</button>
+                            <button class="like-btn" data-product-id="3">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Citrus Breeze</h3>
-                        <p>A refreshing citrus explosion with undertones of fresh herbs and musk.</p>
-                        <span class="price">₹2,999</span>
-                        <button class="add-to-cart" data-product-id="3">Add to Cart</button>
+                        <p>Fresh citrus scent with green notes</p>
+                        <div class="product-price">₹2,999</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="4">
+                <div class="product-card" data-product-id="4" data-category="citrus">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Ocean Mist Perfume">
-                        <button class="like-btn" data-product-id="4" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Ocean Mist">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="4">Add to Cart</button>
+                            <button class="like-btn" data-product-id="4">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Ocean Mist</h3>
-                        <p>A fresh aquatic scent with sea salt and marine notes, evoking coastal serenity.</p>
-                        <span class="price">₹4,499</span>
-                        <button class="add-to-cart" data-product-id="4">Add to Cart</button>
+                        <p>Marine freshness with aquatic notes</p>
+                        <div class="product-price">₹4,499</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="5">
+                <div class="product-card" data-product-id="5" data-category="oriental">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Amber Nights Perfume">
-                        <button class="like-btn" data-product-id="5" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Amber Nights">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="5">Add to Cart</button>
+                            <button class="like-btn" data-product-id="5">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Amber Nights</h3>
-                        <p>Warm amber and patchouli blend with spicy notes for an oriental mystique.</p>
-                        <span class="price">₹4,999</span>
-                        <button class="add-to-cart" data-product-id="5">Add to Cart</button>
+                        <p>Warm amber & spice for evening elegance</p>
+                        <div class="product-price">₹4,999</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="6">
+                <div class="product-card" data-product-id="6" data-category="floral">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Lavender Dreams Perfume">
-                        <button class="like-btn" data-product-id="6" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Lavender Dreams">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="6">Add to Cart</button>
+                            <button class="like-btn" data-product-id="6">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Lavender Dreams</h3>
-                        <p>Calming lavender essence with chamomile and vanilla for peaceful relaxation.</p>
-                        <span class="price">₹2,499</span>
-                        <button class="add-to-cart" data-product-id="6">Add to Cart</button>
+                        <p>Calming lavender with herbal notes</p>
+                        <div class="product-price">₹2,499</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="7">
+                <div class="product-card" data-product-id="7" data-category="woody">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Spicy Oud Perfume">
-                        <button class="like-btn" data-product-id="7" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Spicy Oud">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="7">Add to Cart</button>
+                            <button class="like-btn" data-product-id="7">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Spicy Oud</h3>
-                        <p>Rich oud wood with cardamom and cinnamon for an exotic, sensual experience.</p>
-                        <span class="price">₹6,499</span>
-                        <button class="add-to-cart" data-product-id="7">Add to Cart</button>
+                        <p>Rich oud wood with cardamom and cinnamon</p>
+                        <div class="product-price">₹6,499</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="8">
+                <div class="product-card" data-product-id="8" data-category="citrus">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1458538977777-0549b2370168?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Fresh Mint Perfume">
-                        <button class="like-btn" data-product-id="8" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://images.unsplash.com/photo-1458538977777-0549b2370168?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Fresh Mint">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="8">Add to Cart</button>
+                            <button class="like-btn" data-product-id="8">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Fresh Mint</h3>
-                        <p>Cool mint leaves with green tea and citrus for an invigorating freshness.</p>
-                        <span class="price">₹1,999</span>
-                        <button class="add-to-cart" data-product-id="8">Add to Cart</button>
+                        <p>Cool mint leaves with green tea and citrus</p>
+                        <div class="product-price">₹1,999</div>
                     </div>
                 </div>
 
-                <div class="product-card" data-product-id="9">
+                <div class="product-card" data-product-id="9" data-category="oriental">
                     <div class="product-image">
-                        <img src="https://tse2.mm.bing.net/th/id/OIP.APC1Bedupd0Uo97ZazalqgHaIf?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Vanilla Orchid Perfume">
-                        <button class="like-btn" data-product-id="9" title="Add to Favorites">
-                            <span class="like-icon">🤍</span>
-                        </button>
+                        <img src="https://tse2.mm.bing.net/th/id/OIP.APC1Bedupd0Uo97ZazalqgHaIf?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Vanilla Orchid">
+                        <div class="product-overlay">
+                            <button class="add-to-cart" data-product-id="9">Add to Cart</button>
+                            <button class="like-btn" data-product-id="9">
+                                <span class="like-icon">🤍</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-info">
                         <h3>Vanilla Orchid</h3>
-                        <p>Sweet vanilla orchid with coconut and musk for a tropical paradise scent.</p>
-                        <span class="price">₹3,499</span>
-                        <button class="add-to-cart" data-product-id="9">Add to Cart</button>
+                        <p>Sweet vanilla orchid with coconut and musk</p>
+                        <div class="product-price">₹3,499</div>
                     </div>
                 </div>
             </div>
@@ -291,14 +323,32 @@
 
     <section id="about" class="about">
         <div class="container">
-            <h2>About Perfumy</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>At Perfumy, we believe that every individual deserves to feel confident and alluring. Our collection of luxury fragrances is crafted with the finest ingredients from around the world, ensuring unparalleled quality and sophistication.</p>
-                    <p>Founded in 2020, Perfumy has quickly become a leader in the fragrance industry, known for our innovative blends and commitment to sustainability. Each scent tells a story, designed to evoke emotions and create lasting memories.</p>
+                    <h2>About Perfumy</h2>
+                    <p>Perfumy is more than just a fragrance brand – we're your gateway to olfactory luxury. Founded with a passion for exceptional scents, we curate the finest collection of perfumes from around the world.</p>
+                    <p>Our expert perfumers blend traditional techniques with modern innovation to create fragrances that tell your unique story. Each scent is carefully crafted to evoke emotions, memories, and confidence.</p>
+                    <p>Join thousands of satisfied customers who have discovered their signature scent with Perfumy. Experience the art of fragrance like never before.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-award"></i>
+                            <h4>Premium Quality</h4>
+                            <p>Only the finest ingredients and expert craftsmanship</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h4>Free Shipping</h4>
+                            <p>Complimentary delivery on all orders</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-undo"></i>
+                            <h4>30-Day Returns</h4>
+                            <p>Shop with confidence and peace of mind</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyZnVtZXxlbnwwfHwwfHx8MA%3D%3D" alt="Perfume bottles">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Luxury Perfumes">
                 </div>
             </div>
         </div>
@@ -307,34 +357,114 @@
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Us</h2>
+            <p>Get in touch with our fragrance experts</p>
+
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <p><strong>Phone:</strong> +91 9361483586</p>
-                    <p><strong>Email:</strong> perfumy@gmail.com</p>
-                    <p><strong>Address:</strong> 123 Fragrance Street, Perfume City, PC 12345</p>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Visit Our Store</h4>
+                            <p>123 Fragrance Street<br>Luxury District, Mumbai 400001</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>hello@perfumy.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Store Hours</h4>
+                            <p>Mon-Sat: 10AM - 8PM<br>Sunday: 11AM - 6PM</p>
+                        </div>
+                    </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
+
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Perfumy. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">Twitter</a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Perfumy</h3>
+                    <p>Your destination for luxury fragrances. Discover scents that define you.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Stay Connected</h4>
+                    <p>Subscribe to our newsletter for exclusive offers and new arrivals.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Perfumy. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>

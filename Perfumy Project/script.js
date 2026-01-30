@@ -71,95 +71,443 @@ function logout() {
 }
 
 // ================================
-// AUTH FORMS (LOGIN & SIGNUP)
+// ENHANCED AUTH FORMS (MARVELOUS FEATURES)
 // ================================
 
 function initializeAuthForms() {
-    const loginForm = document.querySelector('.login-form');
-    const signupForm = document.querySelector('.signup-form');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
     const contactForm = document.querySelector('.contact-form');
 
-    // Password toggle functionality
-    const toggleButtons = document.querySelectorAll('#togglePassword');
+    // Enhanced password toggle functionality
+    const toggleButtons = document.querySelectorAll('.password-toggle');
     toggleButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const passwordInput = btn.previousElementSibling;
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                btn.textContent = '🙈';
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
             } else {
                 passwordInput.type = 'password';
-                btn.textContent = '👁️';
+                btn.innerHTML = '<i class="fas fa-eye"></i>';
             }
         });
     });
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const email = loginForm.querySelector('#email').value;
-            const password = loginForm.querySelector('#password').value;
-
-            if (!email || !password) {
-                showNotification('Please enter email and password');
-                return;
-            }
-
-            const user = {
-                email,
-                firstName: email.split('@')[0],
-                loggedIn: true
-            };
-
-            localStorage.setItem('perfumy_user', JSON.stringify(user));
-            showNotification('Login successful! Welcome back!');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        });
+    // Password strength checker for signup
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', checkPasswordStrength);
     }
 
+    // Real-time form validation
+    initializeFormValidation();
+
+    // Login form handler
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    // Signup form handler
     if (signupForm) {
-        signupForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const formData = new FormData(signupForm);
+        signupForm.addEventListener('submit', handleSignup);
+    }
 
-            const password = formData.get('password');
-            const confirmPassword = formData.get('confirmPassword');
-
-            if (password !== confirmPassword) {
-                showNotification('Passwords do not match');
-                return;
-            }
-
-            if (password.length < 8) {
-                showNotification('Password must be at least 8 characters long');
-                return;
-            }
-
-            const user = {
-                firstName: formData.get('firstName'),
-                lastName: formData.get('lastName'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                loggedIn: true
-            };
-
-            localStorage.setItem('perfumy_user', JSON.stringify(user));
-            showNotification('Account created successfully! Welcome to Perfumy!');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        });
+    // Forgot password form
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', handleForgotPassword);
     }
 
     if (contactForm) {
         contactForm.addEventListener('submit', e => {
             e.preventDefault();
-            // In a real application, this would send the data to a server
             showNotification('Thank you for your message! We\'ll get back to you soon.');
             contactForm.reset();
         });
+    }
+}
+
+// Social Login Functions
+function socialLogin(provider) {
+    // Show loading state
+    showNotification(`Connecting to ${provider}...`, 'info');
+
+    // Simulate social login process
+    setTimeout(() => {
+        const user = {
+            firstName: 'Social',
+            lastName: 'User',
+            email: `user@${provider}.com`,
+            provider: provider,
+            loggedIn: true
+        };
+
+        localStorage.setItem('perfumy_user', JSON.stringify(user));
+        showNotification(`Successfully logged in with ${provider}!`, 'success');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
+    }, 2000);
+}
+
+// Password Strength Checker
+function checkPasswordStrength() {
+    const password = document.getElementById('password').value;
+    const strengthBar = document.getElementById('strengthFill');
+    const strengthText = document.getElementById('strengthText');
+
+    if (!strengthBar || !strengthText) return;
+
+    let strength = 0;
+    let feedback = [];
+
+    // Length check
+    if (password.length >= 8) strength += 1;
+    else feedback.push('At least 8 characters');
+
+    // Lowercase check
+    if (/[a-z]/.test(password)) strength += 1;
+    else feedback.push('Lowercase letter');
+
+    // Uppercase check
+    if (/[A-Z]/.test(password)) strength += 1;
+    else feedback.push('Uppercase letter');
+
+    // Number check
+    if (/\d/.test(password)) strength += 1;
+    else feedback.push('Number');
+
+    // Special character check
+    if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+    else feedback.push('Special character');
+
+    // Update UI
+    strengthBar.className = 'strength-fill';
+
+    if (strength <= 2) {
+        strengthBar.classList.add('weak');
+        strengthText.textContent = 'Weak password';
+        strengthText.style.color = '#e74c3c';
+    } else if (strength <= 4) {
+        strengthBar.classList.add('medium');
+        strengthText.textContent = 'Medium strength';
+        strengthText.style.color = '#f39c12';
+    } else {
+        strengthBar.classList.add('strong');
+        strengthText.textContent = 'Strong password';
+        strengthText.style.color = '#27ae60';
+    }
+}
+
+// Form Validation
+function initializeFormValidation() {
+    const inputs = document.querySelectorAll('input[required]');
+    inputs.forEach(input => {
+        input.addEventListener('blur', validateField);
+        input.addEventListener('input', clearFieldError);
+    });
+}
+
+function validateField(e) {
+    const field = e.target;
+    const feedback = field.parentElement.querySelector('.input-feedback');
+
+    if (!feedback) return;
+
+    let isValid = true;
+    let message = '';
+
+    switch (field.id) {
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(field.value)) {
+                isValid = false;
+                message = 'Please enter a valid email address';
+            }
+            break;
+        case 'firstName':
+        case 'lastName':
+            if (field.value.length < 2) {
+                isValid = false;
+                message = 'Must be at least 2 characters';
+            }
+            break;
+        case 'phone':
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            if (!phoneRegex.test(field.value.replace(/[\s\-\(\)]/g, ''))) {
+                isValid = false;
+                message = 'Please enter a valid phone number';
+            }
+            break;
+        case 'password':
+            if (field.value.length < 8) {
+                isValid = false;
+                message = 'Password must be at least 8 characters';
+            }
+            break;
+        case 'confirmPassword':
+            const password = document.getElementById('password');
+            if (field.value !== password.value) {
+                isValid = false;
+                message = 'Passwords do not match';
+            }
+            break;
+    }
+
+    if (!isValid) {
+        feedback.textContent = message;
+        feedback.classList.add('show');
+        field.style.borderColor = '#e74c3c';
+    } else {
+        feedback.classList.remove('show');
+        field.style.borderColor = '#27ae60';
+    }
+
+    return isValid;
+}
+
+function clearFieldError(e) {
+    const field = e.target;
+    const feedback = field.parentElement.querySelector('.input-feedback');
+
+    if (feedback) {
+        feedback.classList.remove('show');
+        field.style.borderColor = '#e1e5e9';
+    }
+}
+
+// Enhanced Login Handler
+function handleLogin(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.querySelector('#email').value;
+    const password = form.querySelector('#password').value;
+    const rememberMe = form.querySelector('#rememberMe')?.checked;
+    const submitBtn = form.querySelector('#loginBtn');
+
+    // Basic validation
+    if (!email || !password) {
+        showNotification('Please fill in all fields', 'error');
+        return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showNotification('Please enter a valid email address', 'error');
+        return;
+    }
+
+    // Show loading state
+    submitBtn.classList.add('loading');
+
+    // Simulate login process
+    setTimeout(() => {
+        // Check if user exists in localStorage (for demo purposes)
+        const existingUser = localStorage.getItem('perfumy_user');
+        let user;
+
+        if (existingUser) {
+            user = JSON.parse(existingUser);
+            if (user.email !== email) {
+                // Create new user for demo
+                user = {
+                    email,
+                    firstName: email.split('@')[0],
+                    loggedIn: true
+                };
+            }
+        } else {
+            user = {
+                email,
+                firstName: email.split('@')[0],
+                loggedIn: true
+            };
+        }
+
+        if (rememberMe) {
+            user.rememberMe = true;
+        }
+
+        localStorage.setItem('perfumy_user', JSON.stringify(user));
+
+        // Show success animation
+        const successAnimation = document.getElementById('successAnimation');
+        if (successAnimation) {
+            successAnimation.classList.add('show');
+        }
+
+        submitBtn.classList.remove('loading');
+
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+    }, 2000);
+}
+
+// Enhanced Signup Handler
+function handleSignup(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = form.querySelector('#signupBtn');
+
+    // Validate all required fields
+    const inputs = form.querySelectorAll('input[required]');
+    let isFormValid = true;
+
+    inputs.forEach(input => {
+        if (!validateField({ target: input })) {
+            isFormValid = false;
+        }
+    });
+
+    if (!isFormValid) {
+        showNotification('Please correct the errors in the form', 'error');
+        return;
+    }
+
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    const confirmPassword = formData.get('confirmPassword');
+
+    // Additional password confirmation check
+    if (password !== confirmPassword) {
+        showNotification('Passwords do not match', 'error');
+        return;
+    }
+
+    // Check terms acceptance
+    if (!formData.get('terms')) {
+        showNotification('Please accept the Terms & Conditions', 'error');
+        return;
+    }
+
+    // Show loading state
+    submitBtn.classList.add('loading');
+
+    // Simulate signup process
+    setTimeout(() => {
+        const user = {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            newsletter: formData.get('newsletter') ? true : false,
+            loggedIn: true,
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem('perfumy_user', JSON.stringify(user));
+
+        // Show success animation
+        const successAnimation = document.getElementById('successAnimation');
+        if (successAnimation) {
+            successAnimation.classList.add('show');
+        }
+
+        submitBtn.classList.remove('loading');
+
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+    }, 2500);
+}
+
+// Forgot Password Handler
+function handleForgotPassword(e) {
+    e.preventDefault();
+
+    const email = e.target.querySelector('input[type="email"]').value;
+
+    if (!email) {
+        showNotification('Please enter your email address', 'error');
+        return;
+    }
+
+    // Simulate password reset process
+    showNotification('Password reset link sent to your email!', 'success');
+    closeModal();
+
+    setTimeout(() => {
+        showNotification('Check your email for password reset instructions', 'info');
+    }, 1000);
+}
+
+// Modal Functions
+function showForgotPassword() {
+    const modal = document.getElementById('forgotPasswordModal');
+    if (modal) {
+        modal.classList.add('show');
+    }
+}
+
+function showTermsModal() {
+    const modal = document.getElementById('termsModal');
+    if (modal) {
+        modal.classList.add('show');
+    }
+}
+
+function closeModal() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        modal.classList.remove('show');
+    });
+}
+
+function acceptTerms() {
+    const termsCheckbox = document.getElementById('terms');
+    if (termsCheckbox) {
+        termsCheckbox.checked = true;
+    }
+    closeModal();
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+        closeModal();
+    }
+});
+
+// Enhanced Notification System
+function showNotification(message, type = 'success') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${getNotificationIcon(type)}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+function getNotificationIcon(type) {
+    switch (type) {
+        case 'success': return 'fa-check-circle';
+        case 'error': return 'fa-exclamation-circle';
+        case 'warning': return 'fa-exclamation-triangle';
+        case 'info': return 'fa-info-circle';
+        default: return 'fa-info-circle';
     }
 }
 

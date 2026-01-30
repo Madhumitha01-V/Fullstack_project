@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeUserState();
     initializeProductInteractions();
     initializeAuthForms();
+    initializeMobileMenu();
+    initializeSmoothScrolling();
     updateCartCount();
 });
 
@@ -63,6 +65,7 @@ function logout() {
 function initializeAuthForms() {
     const loginForm = document.querySelector('.login-form');
     const signupForm = document.querySelector('.signup-form');
+    const contactForm = document.querySelector('.contact-form');
 
     if (loginForm) {
         loginForm.addEventListener('submit', e => {
@@ -103,6 +106,15 @@ function initializeAuthForms() {
             window.location.href = 'index.html';
         });
     }
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', e => {
+            e.preventDefault();
+            // In a real application, this would send the data to a server
+            showNotification('Thank you for your message! We\'ll get back to you soon.');
+            contactForm.reset();
+        });
+    }
 }
 
 // ================================
@@ -111,12 +123,15 @@ function initializeAuthForms() {
 
 function getProductById(id) {
     const products = [
-        { id: 1, name: "Elegant Rose", price: 3999, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539", description: "Rose & vanilla blend" },
-        { id: 2, name: "Midnight Jasmine", price: 3499, image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de", description: "Jasmine & sandalwood" },
-        { id: 3, name: "Citrus Breeze", price: 2999, image: "https://tse1.mm.bing.net/th/id/OIP.ZWzP-beK0QjTRbC7OwXvJAHaHa", description: "Fresh citrus scent" },
-        { id: 4, name: "Ocean Mist", price: 4499, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f", description: "Marine freshness" },
-        { id: 5, name: "Amber Nights", price: 4999, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108", description: "Warm amber & spice" },
-        { id: 6, name: "Lavender Dreams", price: 2499, image: "https://images.unsplash.com/photo-1587304655801-beb15c4dfd25", description: "Lavender calm" }
+        { id: 1, name: "Elegant Rose", price: 3999, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Rose & vanilla blend" },
+        { id: 2, name: "Midnight Jasmine", price: 3499, image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Jasmine & sandalwood" },
+        { id: 3, name: "Citrus Breeze", price: 2999, image: "https://tse1.mm.bing.net/th/id/OIP.ZWzP-beK0QjTRbC7OwXvJAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3", description: "Fresh citrus scent" },
+        { id: 4, name: "Ocean Mist", price: 4499, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Marine freshness" },
+        { id: 5, name: "Amber Nights", price: 4999, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Warm amber & spice" },
+        { id: 6, name: "Lavender Dreams", price: 2499, image: "https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Lavender calm" },
+        { id: 7, name: "Spicy Oud", price: 6499, image: "https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Rich oud wood with cardamom and cinnamon" },
+        { id: 8, name: "Fresh Mint", price: 1999, image: "https://images.unsplash.com/photo-1458538977777-0549b2370168?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Cool mint leaves with green tea and citrus" },
+        { id: 9, name: "Vanilla Orchid", price: 3499, image: "https://tse2.mm.bing.net/th/id/OIP.APC1Bedupd0Uo97ZazalqgHaIf?rs=1&pid=ImgDetMain&o=7&rm=3", description: "Sweet vanilla orchid with coconut and musk" }
     ];
     return products.find(p => p.id === id);
 }
@@ -207,8 +222,36 @@ function loadFavoritesState() {
 }
 
 // ================================
-// UI NOTIFICATION
+// MOBILE MENU
 // ================================
+
+function initializeMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    }
+}
 
 function showNotification(message) {
     const div = document.createElement('div');
@@ -225,4 +268,23 @@ function showNotification(message) {
     `;
     document.body.appendChild(div);
     setTimeout(() => div.remove(), 2000);
+}
+
+// ================================
+// SMOOTH SCROLLING
+// ================================
+
+function initializeSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 }

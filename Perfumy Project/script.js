@@ -43,17 +43,14 @@ function getCurrentUser() {
 }
 
 function initializeUserState() {
-    const authLinks = document.getElementById('authLinks');
     const userActions = document.getElementById('userActions');
     const username = document.getElementById('username');
 
     if (isUserLoggedIn()) {
         const user = getCurrentUser();
-        if (authLinks) authLinks.style.display = 'none';
         if (userActions) userActions.style.display = 'flex';
         if (username) username.textContent = user.firstName || 'Account';
     } else {
-        if (authLinks) authLinks.style.display = 'block';
         if (userActions) userActions.style.display = 'none';
     }
 

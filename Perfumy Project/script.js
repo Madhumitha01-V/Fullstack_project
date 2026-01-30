@@ -134,13 +134,40 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // User State Management
+function isUserLoggedIn() {
+    const userData = localStorage.getItem('perfumy_user');
+    if (!userData || userData === 'null' || userData === 'undefined') {
+        return false;
+    }
+
+    try {
+        const user = JSON.parse(userData);
+        return user && user.email && user.loggedIn === true;
+    } catch (e) {
+        return false;
+    }
+}
+
+function getCurrentUser() {
+    if (!isUserLoggedIn()) {
+        return null;
+    }
+
+    const userData = localStorage.getItem('perfumy_user');
+    try {
+        return JSON.parse(userData);
+    } catch (e) {
+        return null;
+    }
+}
+
 function initializeUserState() {
-    const user = JSON.parse(localStorage.getItem('perfumy_user') || 'null');
     const authLinks = document.getElementById('authLinks');
     const userActions = document.getElementById('userActions');
     const username = document.getElementById('username');
 
-    if (user && user.email) {
+    if (isUserLoggedIn()) {
+        const user = getCurrentUser();
         // User is logged in
         if (authLinks) authLinks.style.display = 'none';
         if (userActions) userActions.style.display = 'flex';
@@ -152,9 +179,10 @@ function initializeUserState() {
         // User is not logged in
         if (authLinks) authLinks.style.display = 'block';
         if (userActions) userActions.style.display = 'none';
+        if (username) username.textContent = '';
     }
 
-    // Setup logout functionality
+    // Setup logout functionality (only if user actions exist)
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function(e) {
@@ -165,11 +193,18 @@ function initializeUserState() {
 }
 
 function logout() {
+    // Clear all user-related data
     localStorage.removeItem('perfumy_user');
     localStorage.removeItem('perfumy_cart');
     localStorage.removeItem('perfumy_favorites');
-    alert('Logged out successfully!');
-    window.location.href = 'index.html';
+
+    // Show logout message
+    showNotification('Logged out successfully!', 'info');
+
+    // Redirect to home page after a short delay
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1000);
 }
 
 // Product Interactions
@@ -197,8 +232,7 @@ function initializeProductInteractions() {
 }
 
 function toggleFavorite(productId, button) {
-    const user = JSON.parse(localStorage.getItem('perfumy_user') || 'null');
-    if (!user) {
+    if (!isUserLoggedIn()) {
         alert('Please login to add favorites!');
         window.location.href = 'login.html';
         return;
@@ -260,8 +294,7 @@ function getProductById(id) {
 }
 
 function addToCart(product) {
-    const user = JSON.parse(localStorage.getItem('perfumy_user') || 'null');
-    if (!user) {
+    if (!isUserLoggedIn()) {
         alert('Please login to add items to cart!');
         window.location.href = 'login.html';
         return;
@@ -570,7 +603,9 @@ async function submitAuthForm(form, type) {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email,
-                    phone: data.phone
+                    phone: data.phone,
+                    loggedIn: true,
+                    loginTime: new Date().toISOString()
                 };
                 localStorage.setItem('perfumy_user', JSON.stringify(userData));
             } else if (type === 'login') {
@@ -579,14 +614,16 @@ async function submitAuthForm(form, type) {
                     firstName: 'Demo',
                     lastName: 'User',
                     email: data.email,
-                    phone: '+91xxxxxxxxxx'
+                    phone: '+91xxxxxxxxxx',
+                    loggedIn: true,
+                    loginTime: new Date().toISOString()
                 };
                 localStorage.setItem('perfumy_user', JSON.stringify(userData));
             }
 
             showMessage(form, 'success', response.message);
             setTimeout(() => {
-                window.location.href = type === 'login' ? 'index.html' : 'login.html';
+                window.location.href = 'index.html';
             }, 1500);
         } else {
             showMessage(form, 'error', response.message);

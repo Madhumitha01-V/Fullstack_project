@@ -133,6 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAuthForms();
 });
 
+function refreshUserInterface() {
+    initializeUserState();
+    loadFavoritesState();
+    updateCartCount();
+}
+
 // User State Management
 function isUserLoggedIn() {
     const userData = localStorage.getItem('perfumy_user');

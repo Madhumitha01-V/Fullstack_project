@@ -165,6 +165,13 @@
     <script>
         // Account page specific functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in before loading account page
+            if (!isUserLoggedIn()) {
+                alert('Please login to access your account!');
+                window.location.href = 'login.html';
+                return;
+            }
+
             initializeUserState();
             loadUserProfile();
             loadFavorites();

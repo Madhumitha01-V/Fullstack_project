@@ -87,6 +87,13 @@
     <script>
         // Cart page specific functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in before loading cart page
+            if (!isUserLoggedIn()) {
+                alert('Please login to access your cart!');
+                window.location.href = 'login.html';
+                return;
+            }
+
             initializeUserState();
             loadCartItems();
             setupCartEventListeners();

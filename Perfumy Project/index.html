@@ -8,6 +8,14 @@
     <title>Perfumy - Luxury Fragrances</title>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Perfumy</h2>
+            <p>Discover Your Signature Scent</p>
+        </div>
+    </div>
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -24,7 +32,11 @@
                 </li>
             </ul>
             <div class="user-actions" id="userActions" style="display: none;">
-                <a href="#" class="cart-icon" id="cartIcon" title="Shopping Cart">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search fragrances..." class="search-input">
+                    <button id="searchBtn" class="search-btn">🔍</button>
+                </div>
+                <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
                     <span class="icon">🛒</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
@@ -59,6 +71,16 @@
     <section id="products" class="products">
         <div class="container">
             <h2>Our Featured Fragrances</h2>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="floral">Floral</button>
+                <button class="filter-btn" data-filter="citrus">Citrus</button>
+                <button class="filter-btn" data-filter="woody">Woody</button>
+                <button class="filter-btn" data-filter="oriental">Oriental</button>
+            </div>
+
             <div class="product-grid">
                 <div class="product-card" data-product-id="1">
                     <div class="product-image">

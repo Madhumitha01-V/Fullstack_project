@@ -67,40 +67,5 @@
 
 <script src="script.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    // Toggle password
-    document.getElementById('togglePassword').onclick = () => {
-        const pwd = document.getElementById('password');
-        pwd.type = pwd.type === 'password' ? 'text' : 'password';
-    };
-
-    // Login logic
-    document.querySelector('.login-form').addEventListener('submit', e => {
-        e.preventDefault();
-
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-
-        if (!email || !password) {
-            alert('Please enter email and password');
-            return;
-        }
-
-        const user = {
-            email,
-            firstName: email.split('@')[0],
-            loggedIn: true
-        };
-
-        localStorage.setItem('perfumy_user', JSON.stringify(user));
-        alert('Login successful!');
-        window.location.href = 'index.html';
-    });
-});
-</script>
-
 </body>
 </html>

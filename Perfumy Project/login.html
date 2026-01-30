@@ -31,17 +31,28 @@
         <div class="container">
             <div class="auth-container">
                 <div class="auth-form">
-                    <h2>Welcome Back</h2>
-                    <p>Sign in to your Perfumy account</p>
+                    <div class="auth-header">
+                        <div class="auth-icon">
+                            <span>🔑</span>
+                        </div>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your Perfumy account</p>
+                    </div>
 
                     <form class="login-form">
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            <label for="email">
+                                <span class="field-icon">📧</span>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Password</label>
+                            <label for="password">
+                                <span class="field-icon">🔒</span>
+                                Password
+                            </label>
                             <div class="password-input">
                                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
                                 <button type="button" class="toggle-password" id="togglePassword">
@@ -53,29 +64,44 @@
                         <div class="form-options">
                             <label class="checkbox-container">
                                 <input type="checkbox" name="remember">
+                                <span class="checkmark"></span>
+                                <span class="remember-icon">💾</span>
                                 Remember me
                             </label>
-                            <a href="#" class="forgot-password">Forgot Password?</a>
+                            <a href="#" class="forgot-password">
+                                <span class="forgot-icon">❓</span>
+                                Forgot Password?
+                            </a>
                         </div>
 
-                        <button type="submit" class="auth-btn">Sign In</button>
+                        <button type="submit" class="auth-btn">
+                            <span class="btn-icon">🚀</span>
+                            Sign In
+                        </button>
                     </form>
 
                     <div class="auth-divider">
-                        <span>or</span>
+                        <span>or continue with</span>
                     </div>
 
                     <div class="social-login">
-                        <button class="social-btn google-btn">
-                            <span>🔍</span> Continue with Google
+                        <button class="social-btn google-btn" type="button">
+                            <span class="social-icon">🔍</span>
+                            Continue with Google
                         </button>
-                        <button class="social-btn facebook-btn">
-                            <span>📘</span> Continue with Facebook
+                        <button class="social-btn facebook-btn" type="button">
+                            <span class="social-icon">📘</span>
+                            Continue with Facebook
+                        </button>
+                        <button class="social-btn apple-btn" type="button">
+                            <span class="social-icon">🍎</span>
+                            Continue with Apple
                         </button>
                     </div>
 
                     <p class="auth-link">
                         Don't have an account? <a href="signup.html">Sign up here</a>
+                        <span class="link-icon">✨</span>
                     </p>
                 </div>
 

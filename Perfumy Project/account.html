@@ -177,4 +177,188 @@
             }
 
             // 2. Load data
-            loadUserProfile
+            loadUserProfile();
+            loadFavorites();
+            loadCartPreview();
+
+            // 3. Event listeners
+            setupAccountListeners();
+        });
+
+        function loadUserProfile() {
+            try {
+                const user = JSON.parse(localStorage.getItem('perfumy_user') || '{}');
+
+                if (Object.keys(user).length === 0) return;
+
+                const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Welcome!';
+                document.getElementById('userFullName').textContent = fullName;
+                document.getElementById('userEmail').textContent = user.email || '—';
+
+                document.getElementById('firstName').value  = user.firstName  || '';
+                document.getElementById('lastName').value   = user.lastName   || '';
+                document.getElementById('email').value      = user.email      || '';
+                document.getElementById('phone').value      = user.phone      || '';
+            } catch (e) {
+                console.error('Failed to load user profile', e);
+            }
+        }
+
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('perfumy_favorites') || '[]');
+            const grid   = document.getElementById('favoritesGrid');
+            const empty  = document.getElementById('emptyFavorites');
+
+            grid.querySelectorAll('.favorite-item').forEach(el => el.remove());
+
+            if (favorites.length === 0) {
+                empty.style.display = 'flex';
+                return;
+            }
+
+            empty.style.display = 'none';
+
+            favorites.forEach(id => {
+                const product = getProductById?.(Number(id));
+                if (product) {
+                    grid.appendChild(createFavoriteItem(product));
+                }
+            });
+        }
+
+        function createFavoriteItem(product) {
+            const div = document.createElement('div');
+            div.className = 'favorite-item';
+            div.innerHTML = `
+                <div class="favorite-image">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    <button class="remove-favorite" data-id="${product.id}" title="Remove">
+                        <i class="fas fa-heart-broken"></i>
+                    </button>
+                </div>
+                <div class="favorite-info">
+                    <h4>${product.name}</h4>
+                    <p class="price">₹${product.price.toLocaleString()}</p>
+                    <button class="add-to-cart-btn" data-id="${product.id}">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            `;
+            return div;
+        }
+
+        function loadCartPreview() {
+            const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
+            const container = document.getElementById('cartPreview');
+            const empty     = document.getElementById('emptyCartPreview');
+
+            container.querySelectorAll('.cart-preview-item, .more-items').forEach(el => el.remove());
+
+            if (cart.length === 0) {
+                empty.style.display = 'flex';
+                return;
+            }
+
+            empty.style.display = 'none';
+
+            cart.slice(0, 3).forEach(item => {
+                container.insertBefore(createCartPreviewItem(item), document.querySelector('.cart-actions'));
+            });
+
+            if (cart.length > 3) {
+                const more = document.createElement('p');
+                more.className = 'more-items';
+                more.textContent = `+ ${cart.length - 3} more item(s)`;
+                container.insertBefore(more, document.querySelector('.cart-actions'));
+            }
+        }
+
+        function createCartPreviewItem(item) {
+            const div = document.createElement('div');
+            div.className = 'cart-preview-item';
+            div.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                <div class="info">
+                    <h4>${item.name}</h4>
+                    <p>Qty: ${item.quantity}</p>
+                    <p class="price">₹${(item.price * item.quantity).toLocaleString()}</p>
+                </div>
+            `;
+            return div;
+        }
+
+        function setupAccountListeners() {
+            // Tab navigation
+            document.querySelectorAll('.nav-item[data-section]').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const section = link.dataset.section;
+                    switchSection(section);
+                });
+            });
+
+            // Logout (both buttons)
+            document.querySelectorAll('#sidebarLogout, #logoutBtn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.preventDefault();
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('perfumy_user');
+                        // optional: localStorage.removeItem('perfumy_cart');
+                        showNotification?.('Goodbye! Come back soon ♡', 'success');
+                        window.location.href = 'index.html';
+                    }
+                });
+            });
+
+            // Edit profile placeholder
+            document.getElementById('editProfileBtn')?.addEventListener('click', () => {
+                showNotification?.('Profile editing coming soon!', 'info')
+                 || alert('Profile editing will be available in next update!');
+            });
+
+            // Favorite & cart actions (delegated)
+            document.addEventListener('click', e => {
+                const target = e.target.closest('button');
+
+                if (!target) return;
+
+                if (target.classList.contains('remove-favorite')) {
+                    const id = Number(target.dataset.id);
+                    removeFavorite(id);
+                }
+                else if (target.classList.contains('add-to-cart-btn')) {
+                    const id = Number(target.dataset.id);
+                    const product = getProductById?.(id);
+                    if (product) {
+                        addToCart?.(product);
+                        showNotification?.(`${product.name} added to cart!`, 'success');
+                    }
+                }
+            });
+        }
+
+        function switchSection(section) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelector(`[data-section="${section}"]`)?.classList.add('active');
+
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`${section}-section`)?.classList.add('active');
+        }
+
+        function removeFavorite(productId) {
+            let favs = JSON.parse(localStorage.getItem('perfumy_favorites') || '[]');
+            favs = favs.filter(id => id !== productId);
+            localStorage.setItem('perfumy_favorites', JSON.stringify(favs));
+            loadFavorites();
+            showNotification?.('Removed from favorites', 'info');
+        }
+
+        // Make sure these functions exist in script.js:
+        // - isUserLoggedIn()
+        // - getProductById(id)
+        // - addToCart(product)
+        // - showNotification(message, type)  ← recommended
+        // - updateCartCount()
+    </script>
+</body>
+</html>

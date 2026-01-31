@@ -3,71 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <meta name="description" content="Create your Perfumy account – discover luxury fragrances, exclusive offers and premium scents crafted for you.">
+    <title>Sign Up – Perfumy | Luxury Fragrances</title>
+
+    <!-- Modern Font Awesome (2025–2026 recommended version) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Optimized Google Fonts loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Sign Up - Perfumy</title>
 </head>
-<body>
+<body class="auth-page">
 
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
+    <div id="loadingScreen" class="loading-screen" aria-hidden="true">
         <div class="loading-content">
-            <div class="loading-spinner"></div>
+            <div class="loading-spinner" aria-label="Loading"></div>
             <h2>Perfumy</h2>
             <p>Join Our Family</p>
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header / Navigation -->
     <header class="header">
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Main navigation">
             <div class="logo">
-                <h1>Perfumy</h1>
+                <a href="index.html" aria-label="Perfumy Home">
+                    <h1>Perfumy</h1>
+                </a>
             </div>
+
             <div class="nav-actions">
-    <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#featured">Shop</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#featured">Shop</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
 
-    <div class="auth-buttons">
-        <a href="login.html" class="auth-btn login-btn">Login</a>
-        <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
-    </div>
+                <div class="auth-buttons" id="authButtons">
+                    <a href="login.html" class="auth-btn login-btn">Login</a>
+                    <a href="signup.html" class="auth-btn signup-btn active" aria-current="page">Sign Up</a>
+                </div>
 
-    <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-</div>
+                <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <!-- Sign Up Section -->
-    <section class="auth-section">
+    <!-- Main Content -->
+    <main class="auth-section">
         <div class="container">
             <div class="auth-container">
                 <!-- Sign Up Form -->
                 <div class="auth-form">
                     <div class="auth-header">
-                        <div class="auth-icon">
+                        <div class="auth-icon" aria-hidden="true">
                             <i class="fas fa-user-plus"></i>
                         </div>
-                        <h2>Join Perfumy</h2>
+                        <h1>Join Perfumy</h1>
                         <p>Create your account and discover luxury fragrances</p>
                     </div>
 
-                    <!-- Social Login -->
+                    <!-- Social Signup -->
                     <div class="social-login">
-                        <button class="social-btn google-btn">
+                        <button type="button" class="social-btn google-btn" aria-label="Sign up with Google">
                             <i class="fab fa-google"></i>
                             Sign up with Google
                         </button>
-                        <button class="social-btn facebook-btn">
+                        <button type="button" class="social-btn facebook-btn" aria-label="Sign up with Facebook">
                             <i class="fab fa-facebook-f"></i>
                             Sign up with Facebook
                         </button>
@@ -77,38 +89,78 @@
                         <span>or</span>
                     </div>
 
-                    <form class="signup-form" id="signupForm">
+                    <form id="signupForm" class="signup-form" novalidate>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <div class="input-wrapper">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input type="text" id="firstName" name="firstName" required placeholder="First name">
+                                    <i class="fas fa-user input-icon" aria-hidden="true"></i>
+                                    <input 
+                                        type="text" 
+                                        id="firstName" 
+                                        name="firstName" 
+                                        required 
+                                        autocomplete="given-name"
+                                        placeholder="First name"
+                                        aria-describedby="firstName-error"
+                                    >
                                 </div>
+                                <span id="firstName-error" class="input-feedback" aria-live="polite"></span>
                             </div>
+
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <div class="input-wrapper">
-                                    <i class="fas fa-user input-icon"></i>
-                                    <input type="text" id="lastName" name="lastName" required placeholder="Last name">
+                                    <i class="fas fa-user input-icon" aria-hidden="true"></i>
+                                    <input 
+                                        type="text" 
+                                        id="lastName" 
+                                        name="lastName" 
+                                        required 
+                                        autocomplete="family-name"
+                                        placeholder="Last name"
+                                        aria-describedby="lastName-error"
+                                    >
                                 </div>
+                                <span id="lastName-error" class="input-feedback" aria-live="polite"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-envelope input-icon"></i>
-                                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                                <i class="fas fa-envelope input-icon" aria-hidden="true"></i>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required 
+                                    autocomplete="email"
+                                    placeholder="your@email.com"
+                                    aria-describedby="email-error"
+                                >
                             </div>
+                            <span id="email-error" class="input-feedback" aria-live="polite"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" id="password" name="password" required placeholder="Create a password">
-                                <button type="button" class="password-toggle">
+                                <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    required 
+                                    autocomplete="new-password"
+                                    placeholder="Create a password"
+                                    aria-describedby="password-error strengthText"
+                                >
+                                <button 
+                                    type="button" 
+                                    class="password-toggle" 
+                                    aria-label="Toggle password visibility"
+                                >
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
@@ -118,41 +170,58 @@
                                 </div>
                                 <span class="strength-text" id="strengthText">Password strength</span>
                             </div>
+                            <span id="password-error" class="input-feedback" aria-live="polite"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                                <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword" 
+                                    required 
+                                    autocomplete="new-password"
+                                    placeholder="Confirm your password"
+                                    aria-describedby="confirmPassword-error"
+                                >
                             </div>
+                            <span id="confirmPassword-error" class="input-feedback" aria-live="polite"></span>
                         </div>
 
                         <div class="form-options">
                             <label class="checkbox-container">
                                 <input type="checkbox" id="terms" name="terms" required>
                                 <span class="checkmark"></span>
-                                I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+                                I agree to the 
+                                <a href="#" class="terms-link" target="_blank" rel="noopener">Terms & Conditions</a>
                             </label>
                         </div>
 
-                        <button class="auth-submit-btn" type="submit">
-                            <i class="fas fa-user-plus"></i>
-                            Create Account
+                        <button 
+                            type="submit" 
+                            class="auth-submit-btn"
+                            id="submitBtn"
+                        >
+                            <span class="btn-text">
+                                <i class="fas fa-user-plus"></i> Create Account
+                            </span>
+                            <span class="btn-loader" aria-hidden="true"></span>
                         </button>
                     </form>
 
                     <div class="auth-footer">
-                        <p>Already have an account?
+                        <p>Already have an account? 
                             <a href="login.html" class="auth-link">Sign in</a>
                         </p>
                     </div>
                 </div>
 
-                <!-- Image Section -->
-                <div class="auth-image">
+                <!-- Decorative Image Side -->
+                <div class="auth-image" aria-hidden="true">
                     <div class="image-content">
-                        <h3>Start Your Fragrance Journey</h3>
+                        <h2>Start Your Fragrance Journey</h2>
                         <p>Join thousands of customers who trust Perfumy for their signature scents. Get exclusive access to new releases and special offers.</p>
                         <div class="image-stats">
                             <div class="stat">
@@ -173,9 +242,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <script src="script.js"></script>
-
 </body>
 </html>

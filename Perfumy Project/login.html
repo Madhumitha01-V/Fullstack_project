@@ -3,71 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <meta name="description" content="Sign in to Perfumy – your destination for luxury fragrances and signature scents.">
+    <title>Login – Perfumy | Luxury Fragrances</title>
+    
+    <!-- Updated Font Awesome (2025–2026 version) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts (subset for performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Login - Perfumy</title>
 </head>
-<body>
+<body class="auth-page">
 
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
+    <div id="loadingScreen" class="loading-screen" aria-hidden="true">
         <div class="loading-content">
-            <div class="loading-spinner"></div>
+            <div class="loading-spinner" aria-label="Loading"></div>
             <h2>Perfumy</h2>
             <p>Welcome Back</p>
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header / Navigation -->
     <header class="header">
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Main navigation">
             <div class="logo">
-                <h1>Perfumy</h1>
+                <a href="index.html" aria-label="Perfumy Home">
+                    <h1>Perfumy</h1>
+                </a>
             </div>
-           <div class="nav-actions">
-    <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#featured">Shop</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
 
-    <div class="auth-buttons">
-        <a href="login.html" class="auth-btn login-btn">Login</a>
-        <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
-    </div>
+            <div class="nav-actions">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#featured">Shop</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
 
-    <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-</div>
+                <div class="auth-buttons" id="authButtons">
+                    <a href="login.html" class="auth-btn login-btn active" aria-current="page">Login</a>
+                    <a href="signup.html" class="auth-btn signup-btn">Sign Up</a>
+                </div>
+
+                <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </nav>
     </header>
 
     <!-- Login Section -->
-    <section class="auth-section">
+    <main class="auth-section">
         <div class="container">
             <div class="auth-container">
                 <!-- Login Form -->
                 <div class="auth-form">
                     <div class="auth-header">
-                        <div class="auth-icon">
+                        <div class="auth-icon" aria-hidden="true">
                             <i class="fas fa-sign-in-alt"></i>
                         </div>
-                        <h2>Welcome Back</h2>
+                        <h1>Welcome Back</h1>
                         <p>Sign in to your Perfumy account</p>
                     </div>
 
                     <!-- Social Login -->
                     <div class="social-login">
-                        <button class="social-btn google-btn">
+                        <button type="button" class="social-btn google-btn" aria-label="Sign in with Google">
                             <i class="fab fa-google"></i>
                             Continue with Google
                         </button>
-                        <button class="social-btn facebook-btn">
+                        <button type="button" class="social-btn facebook-btn" aria-label="Sign in with Facebook">
                             <i class="fab fa-facebook-f"></i>
                             Continue with Facebook
                         </button>
@@ -77,24 +89,46 @@
                         <span>or</span>
                     </div>
 
-                    <form class="login-form" id="loginForm">
+                    <form id="loginForm" class="login-form" novalidate>
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-envelope input-icon"></i>
-                                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                                <i class="fas fa-envelope input-icon" aria-hidden="true"></i>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required 
+                                    autocomplete="email"
+                                    placeholder="your@email.com"
+                                    aria-describedby="email-error"
+                                >
                             </div>
+                            <span id="email-error" class="input-feedback" aria-live="polite"></span>
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="input-wrapper">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" id="password" name="password" required placeholder="Enter your password">
-                                <button type="button" class="password-toggle">
+                                <i class="fas fa-lock input-icon" aria-hidden="true"></i>
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    required 
+                                    autocomplete="current-password"
+                                    placeholder="••••••••"
+                                    aria-describedby="password-error"
+                                >
+                                <button 
+                                    type="button" 
+                                    class="password-toggle" 
+                                    aria-label="Toggle password visibility"
+                                >
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
+                            <span id="password-error" class="input-feedback" aria-live="polite"></span>
                         </div>
 
                         <div class="form-options">
@@ -106,23 +140,27 @@
                             <a href="#" class="forgot-password">Forgot Password?</a>
                         </div>
 
-                        <button class="auth-submit-btn" type="submit">
-                            <i class="fas fa-sign-in-alt"></i>
-                            Sign In
+                        <button 
+                            type="submit" 
+                            class="auth-submit-btn"
+                            id="submitBtn"
+                        >
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-loader" aria-hidden="true"></span>
                         </button>
                     </form>
 
                     <div class="auth-footer">
-                        <p>Don't have an account?
+                        <p>Don't have an account? 
                             <a href="signup.html" class="auth-link">Create one</a>
                         </p>
                     </div>
                 </div>
 
-                <!-- Image Section -->
-                <div class="auth-image">
+                <!-- Decorative Image Side -->
+                <div class="auth-image" aria-hidden="true">
                     <div class="image-content">
-                        <h3>Discover Your Signature Scent</h3>
+                        <h2>Discover Your Signature Scent</h2>
                         <p>Indulge in luxury fragrances that captivate and inspire. Join thousands of satisfied customers worldwide.</p>
                         <div class="image-stats">
                             <div class="stat">
@@ -143,9 +181,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <script src="script.js"></script>
-
 </body>
 </html>

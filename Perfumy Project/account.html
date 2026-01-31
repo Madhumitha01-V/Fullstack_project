@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Perfumy</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <title>My Account - Perfumy</title>
+    <!-- Font Awesome for icons (used by notifications & buttons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+    <!-- Header (same as other pages) -->
     <header class="header">
         <nav class="navbar">
             <div class="logo">
@@ -19,8 +23,9 @@
                 <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
+
             <div class="user-actions" id="userActions">
-                <a href="cart.html" class="cart-icon" id="cartIcon" title="Shopping Cart">
+                <a href="cart.html" class="cart-icon" title="Shopping Cart">
                     <span class="icon">🛒</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
@@ -36,6 +41,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -44,9 +50,11 @@
         </nav>
     </header>
 
+    <!-- Main Account Content -->
     <section class="account-section">
         <div class="container">
             <div class="account-container">
+                <!-- Sidebar -->
                 <div class="account-sidebar">
                     <div class="user-profile">
                         <div class="profile-avatar">
@@ -58,32 +66,29 @@
 
                     <nav class="account-nav">
                         <a href="#profile" class="nav-item active" data-section="profile">
-                            <span class="nav-icon">👤</span>
-                            Profile Information
+                            <span class="nav-icon">👤</span> Profile
                         </a>
                         <a href="#favorites" class="nav-item" data-section="favorites">
-                            <span class="nav-icon">❤️</span>
-                            My Favorites
+                            <span class="nav-icon">❤️</span> Favorites
                         </a>
                         <a href="#cart" class="nav-item" data-section="cart">
-                            <span class="nav-icon">🛒</span>
-                            My Cart
+                            <span class="nav-icon">🛒</span> Cart Preview
                         </a>
                         <a href="#orders" class="nav-item" data-section="orders">
-                            <span class="nav-icon">📦</span>
-                            Order History
+                            <span class="nav-icon">📦</span> Orders
                         </a>
                         <a href="#" class="nav-item logout-btn" id="sidebarLogout">
-                            <span class="nav-icon">🚪</span>
-                            Logout
+                            <span class="nav-icon">🚪</span> Logout
                         </a>
                     </nav>
                 </div>
 
+                <!-- Content Panels -->
                 <div class="account-content">
-                    <!-- Profile Section -->
+
+                    <!-- Profile -->
                     <div id="profile-section" class="content-section active">
-                        <h2>👤 Profile Information</h2>
+                        <h2>Profile Information</h2>
                         <div class="profile-form">
                             <div class="form-row">
                                 <div class="form-group">
@@ -96,62 +101,58 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address</label>
+                                <label for="email">Email</label>
                                 <input type="email" id="email" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
+                                <label for="phone">Phone</label>
                                 <input type="tel" id="phone" readonly>
                             </div>
-                            <button class="edit-profile-btn" id="editProfileBtn">
-                                <span class="btn-icon">✏️</span>
-                                Edit Profile
+                            <button type="button" class="edit-profile-btn" id="editProfileBtn">
+                                <i class="fas fa-edit"></i> Edit Profile
                             </button>
                         </div>
                     </div>
 
-                    <!-- Favorites Section -->
+                    <!-- Favorites -->
                     <div id="favorites-section" class="content-section">
-                        <h2>❤️ My Favorites</h2>
+                        <h2>My Favorites</h2>
                         <div class="favorites-grid" id="favoritesGrid">
-                            <!-- Favorites will be populated by JavaScript -->
                             <div class="empty-state" id="emptyFavorites">
-                                <div class="empty-icon">❤️</div>
+                                <div class="empty-icon">♡</div>
                                 <h3>No favorites yet</h3>
-                                <p>Start adding products to your favorites!</p>
-                                <a href="index.html#products" class="shop-now-btn">Browse Products</a>
+                                <p>Heart your favorite fragrances</p>
+                                <a href="index.html#products" class="shop-now-btn">Browse Collection</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Cart Section -->
+                    <!-- Cart Preview -->
                     <div id="cart-section" class="content-section">
-                        <h2>🛒 My Cart</h2>
+                        <h2>Cart Preview</h2>
                         <div class="cart-preview" id="cartPreview">
-                            <!-- Cart items will be populated by JavaScript -->
                             <div class="empty-state" id="emptyCartPreview">
                                 <div class="empty-icon">🛒</div>
-                                <h3>Your cart is empty</h3>
-                                <p>Add some fragrances to your cart!</p>
+                                <h3>Cart is empty</h3>
+                                <p>Add something beautiful</p>
                                 <a href="index.html#products" class="shop-now-btn">Shop Now</a>
                             </div>
                         </div>
                         <div class="cart-actions">
                             <a href="cart.html" class="view-cart-btn">
-                                <span class="btn-icon">🛒</span>
-                                View Full Cart
+                                <i class="fas fa-shopping-cart"></i> View Full Cart
                             </a>
                         </div>
                     </div>
 
-                    <!-- Orders Section -->
+                    <!-- Orders (placeholder) -->
                     <div id="orders-section" class="content-section">
-                        <h2>📦 Order History</h2>
+                        <h2>Order History</h2>
                         <div class="orders-list" id="ordersList">
                             <div class="empty-state">
                                 <div class="empty-icon">📦</div>
-                                <h3>No orders yet</h3>
-                                <p>Your order history will appear here once you make a purchase.</p>
+                                <h3>No orders placed yet</h3>
+                                <p>Your purchases will appear here</p>
                                 <a href="index.html#products" class="shop-now-btn">Start Shopping</a>
                             </div>
                         </div>
@@ -161,205 +162,19 @@
         </div>
     </section>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
     <script>
-        // Account page specific functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is logged in before loading account page
+        // ── Account Page Logic ───────────────────────────────────────
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Security check
             if (!isUserLoggedIn()) {
-                alert('Please login to access your account!');
+                showNotification?.('Please sign in to view your account', 'warning') 
+                    || alert('Please login to access your account!');
                 window.location.href = 'login.html';
                 return;
             }
 
-            initializeUserState();
-            loadUserProfile();
-            loadFavorites();
-            loadCartPreview();
-            setupAccountEventListeners();
-        });
-
-        function loadUserProfile() {
-            const user = JSON.parse(localStorage.getItem('perfumy_user') || '{}');
-
-            if (user.firstName && user.lastName) {
-                document.getElementById('userFullName').textContent = `${user.firstName} ${user.lastName}`;
-                document.getElementById('firstName').value = user.firstName;
-                document.getElementById('lastName').value = user.lastName;
-            }
-
-            if (user.email) {
-                document.getElementById('userEmail').textContent = user.email;
-                document.getElementById('email').value = user.email;
-            }
-
-            if (user.phone) {
-                document.getElementById('phone').value = user.phone;
-            }
-        }
-
-        function loadFavorites() {
-            const favorites = JSON.parse(localStorage.getItem('perfumy_favorites') || '[]');
-            const favoritesGrid = document.getElementById('favoritesGrid');
-            const emptyFavorites = document.getElementById('emptyFavorites');
-
-            if (favorites.length === 0) {
-                emptyFavorites.style.display = 'block';
-                return;
-            }
-
-            emptyFavorites.style.display = 'none';
-
-            favorites.forEach(productId => {
-                const product = getProductById(productId);
-                if (product) {
-                    const favoriteElement = createFavoriteElement(product);
-                    favoritesGrid.appendChild(favoriteElement);
-                }
-            });
-        }
-
-        function createFavoriteElement(product) {
-            const element = document.createElement('div');
-            element.className = 'favorite-item';
-            element.innerHTML = `
-                <div class="favorite-image">
-                    <img src="${product.image}" alt="${product.name}">
-                    <button class="remove-favorite" data-product-id="${product.id}">
-                        <span class="remove-icon">❌</span>
-                    </button>
-                </div>
-                <div class="favorite-info">
-                    <h4>${product.name}</h4>
-                    <p class="price">₹${product.price.toLocaleString()}</p>
-                    <button class="add-to-cart-btn" data-product-id="${product.id}">
-                        <span class="btn-icon">🛒</span>
-                        Add to Cart
-                    </button>
-                </div>
-            `;
-            return element;
-        }
-
-        function loadCartPreview() {
-            const cart = JSON.parse(localStorage.getItem('perfumy_cart') || '[]');
-            const cartPreview = document.getElementById('cartPreview');
-            const emptyCartPreview = document.getElementById('emptyCartPreview');
-
-            if (cart.length === 0) {
-                emptyCartPreview.style.display = 'block';
-                return;
-            }
-
-            emptyCartPreview.style.display = 'none';
-
-            cart.slice(0, 3).forEach(item => {
-                const cartElement = createCartPreviewElement(item);
-                cartPreview.insertBefore(cartElement, document.querySelector('.cart-actions'));
-            });
-
-            if (cart.length > 3) {
-                const moreItems = document.createElement('p');
-                moreItems.className = 'more-items';
-                moreItems.textContent = `And ${cart.length - 3} more item(s) in your cart...`;
-                cartPreview.insertBefore(moreItems, document.querySelector('.cart-actions'));
-            }
-        }
-
-        function createCartPreviewElement(item) {
-            const element = document.createElement('div');
-            element.className = 'cart-preview-item';
-            element.innerHTML = `
-                <div class="cart-preview-image">
-                    <img src="${item.image}" alt="${item.name}">
-                </div>
-                <div class="cart-preview-info">
-                    <h4>${item.name}</h4>
-                    <p>Quantity: ${item.quantity}</p>
-                    <p class="price">₹${(item.price * item.quantity).toLocaleString()}</p>
-                </div>
-            `;
-            return element;
-        }
-
-        function setupAccountEventListeners() {
-            // Navigation tabs
-            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.dataset.section;
-                    switchSection(section);
-                });
-            });
-
-            // Edit profile
-            document.getElementById('editProfileBtn').addEventListener('click', function() {
-                alert('Profile editing functionality will be implemented!');
-            });
-
-            // Remove favorite
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('remove-favorite') || e.target.closest('.remove-favorite')) {
-                    const productId = parseInt(e.target.dataset.productId || e.target.closest('.remove-favorite').dataset.productId);
-                    removeFromFavorites(productId);
-                }
-
-                if (e.target.classList.contains('add-to-cart-btn')) {
-                    const productId = parseInt(e.target.dataset.productId);
-                    addToCartFromFavorites(productId);
-                }
-            });
-
-            // Logout
-            document.getElementById('sidebarLogout').addEventListener('click', function(e) {
-                e.preventDefault();
-                logout();
-            });
-        }
-
-        function switchSection(sectionName) {
-            // Update navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
-
-            // Update content
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(`${sectionName}-section`).classList.add('active');
-        }
-
-        function removeFromFavorites(productId) {
-            const favorites = JSON.parse(localStorage.getItem('perfumy_favorites') || '[]');
-            const updatedFavorites = favorites.filter(id => id !== productId);
-            localStorage.setItem('perfumy_favorites', JSON.stringify(updatedFavorites));
-            loadFavorites();
-        }
-
-        function addToCartFromFavorites(productId) {
-            const product = getProductById(productId);
-            if (product) {
-                addToCart(product);
-                alert(`${product.name} added to cart!`);
-            }
-        }
-
-        function getProductById(id) {
-            const products = [
-                { id: 1, name: "Elegant Rose", price: 3999, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "A sophisticated blend of rose petals and vanilla" },
-                { id: 2, name: "Midnight Jasmine", price: 3499, image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "An intoxicating jasmine scent with hints of sandalwood" },
-                { id: 3, name: "Citrus Breeze", price: 2999, image: "https://tse1.mm.bing.net/th/id/OIP.ZWzP-beK0QjTRbC7OwXvJAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3", description: "A refreshing citrus explosion with undertones of fresh herbs" },
-                { id: 4, name: "Ocean Mist", price: 4499, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.3", description: "A fresh aquatic scent with sea salt and marine notes" },
-                { id: 5, name: "Amber Nights", price: 4999, image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Warm amber and patchouli blend with spicy notes" },
-                { id: 6, name: "Lavender Dreams", price: 2499, image: "https://images.unsplash.com/photo-1587304655801-beb15c4dfd25?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Calming lavender essence with chamomile and vanilla" },
-                { id: 7, name: "Spicy Oud", price: 6499, image: "https://images.unsplash.com/photo-1696218092661-973ab1fed5b8?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Rich oud wood with cardamom and cinnamon" },
-                { id: 8, name: "Fresh Mint", price: 1999, image: "https://images.unsplash.com/photo-1458538977777-0549b2370168?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3", description: "Cool mint leaves with green tea and citrus" },
-                { id: 9, name: "Vanilla Orchid", price: 3499, image: "https://tse2.mm.bing.net/th/id/OIP.APC1Bedupd0Uo97ZazalqgHaIf?rs=1&pid=ImgDetMain&o=7&rm=3", description: "Sweet vanilla orchid with coconut and musk" }
-            ];
-            return products.find(p => p.id === id);
-        }
-    </script>
-</body>
-</html>  check whether the code is correct or not if any error fix and generate me the full code
+            // 2. Load data
+            loadUserProfile

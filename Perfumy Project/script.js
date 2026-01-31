@@ -1097,3 +1097,74 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("× signupForm not found in HTML!");
     }
 });
+// =============================================
+// FINAL INITIALIZATION – runs once when DOM is ready
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Perfumy → DOMContentLoaded – initializing all features");
+
+    // ─── Core UI ────────────────────────────────────────
+    hideLoadingScreen();
+    initializeMobileMenu();
+    initializeSmoothScrolling();
+    initializeScrollEffects();
+
+    // ─── Product & interaction features ─────────────────
+    initializeProductInteractions();   // add to cart + favorites
+    initializeSearch();
+    initializeFilters();
+
+    // ─── Forms & auth ───────────────────────────────────
+    initializeForms();
+
+    // ─── Cart & account page specific ───────────────────
+    if (window.location.pathname.includes('cart.html')) {
+        initializeCartPage();
+    }
+    if (window.location.pathname.includes('account.html')) {
+        initializeAccountPage();       // you need to add this function
+    }
+
+    // ─── Show auth prompt for guests (optional) ─────────
+    // showAuthPromptIfNeeded();
+
+    updateUserInterfaceBasedOnLoginState();
+});
+
+window.addEventListener('load', () => {
+    document.body.classList.remove('loading');
+});
+
+function hideLoadingScreen() {
+    setTimeout(() => {
+        const el = document.getElementById('loadingScreen');
+        if (el) el.style.display = 'none';
+    }, 1800);
+}
+
+function updateUserInterfaceBasedOnLoginState() {
+    const user = JSON.parse(localStorage.getItem('perfumy_user') || 'null');
+    const isLoggedIn = !!user?.loggedIn;
+
+    // Update all pages that have .auth-buttons or .user-actions
+    const authContainer = document.querySelector('.auth-buttons');
+    const userActions   = document.querySelector('#userActions');
+
+    if (isLoggedIn) {
+        if (authContainer) {
+            authContainer.innerHTML = `
+                <a href="account.html" class="auth-btn">My Account</a>
+                <button class="auth-btn" id="logoutBtn">Logout</button>
+            `;
+        }
+        if (userActions) {
+            userActions.style.display = 'flex';
+            document.getElementById('username')?.set(user.firstName || 'User');
+        }
+    } else {
+        if (userActions) userActions.style.display = 'none';
+    }
+
+    // Cart count
+    updateCartCount();
+}

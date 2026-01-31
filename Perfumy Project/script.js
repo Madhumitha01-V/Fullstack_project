@@ -1076,3 +1076,24 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM loaded – checking forms...");
+
+    const loginForm  = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    console.log("loginForm exists? →", !!loginForm);
+    console.log("signupForm exists? →", !!signupForm);
+
+    if (loginForm) {
+        console.log("Login form submit listener is attached");
+    } else {
+        console.error("× loginForm not found in HTML!");
+    }
+
+    if (signupForm) {
+        console.log("Signup form submit listener is attached");
+    } else {
+        console.error("× signupForm not found in HTML!");
+    }
+});
